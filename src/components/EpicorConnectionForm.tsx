@@ -6,7 +6,7 @@ import { EpicorConnectionPayload, User } from "../models";
 import { useHistory } from "react-router";
 
 const validationSchema = object({
-  epicorUrl: string().url("Must be a valid URL").required("Epicor URL"),
+  epicorUrl: string().required("Epicor URL"),
   epicorApiKey: string()
     .min(40, "Must contain at least 40 characters")
     .required("Enter Epico API Key"),
@@ -18,13 +18,6 @@ const validationSchema = object({
     .min(3, "Password must contain at least 3 characters")
     .required("Epicor Password"),
 });
-
-export interface BankAccountFormProps {
-  userId: User["id"];
-  createBankAccount: Function;
-  onboarding?: boolean;
-}
-
 export interface EpicorConnectionFormProps {
   userId: User["id"];
   createEpicorConnection: Function;

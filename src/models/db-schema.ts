@@ -6,6 +6,7 @@ import { Like } from "./like";
 import { BankTransfer } from "./banktransfer";
 import { NotificationType } from "./notification";
 import { Comment } from "./comment";
+import { EpicorConnection } from "./epicorconnection";
 
 export interface DbSchema {
   users: User[];
@@ -16,4 +17,5 @@ export interface DbSchema {
   comments: Comment[];
   notifications: NotificationType[];
   banktransfers: BankTransfer[];
+  epicorconnections: EpicorConnection[];
 }

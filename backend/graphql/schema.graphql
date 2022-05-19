@@ -1,5 +1,6 @@
 type Query {
   listBankAccount: [BankAccount!]
+  listEpicorConnection: [EpicorConnection!]
 }
 
 type Mutation {
@@ -9,6 +10,15 @@ type Mutation {
     routingNumber: String!
   ): BankAccount
   deleteBankAccount(
+    id: ID!
+  ): Boolean
+  createEpicorConnection(
+    epicorUrl: String!,
+    epicorApiKey: String!,
+    epicorUsername: String!
+    epicorPassword: String!
+  ): EpicorConnection
+  deleteEpicorConnection(
     id: ID!
   ): Boolean
 }
@@ -23,4 +33,18 @@ type BankAccount {
   isDeleted: Boolean
   createdAt: String
   modifiedAt: String
+}
+
+type EpicorConnection {
+  id: ID!
+  uuid: String
+  userId: String
+  epicorUrl: String
+  epicorApiKey: String
+  epicorUsername: String
+  epicorPassword: String
+  isDeleted: Boolean
+  createdAt: String
+  modifiedAt: String
+
 }

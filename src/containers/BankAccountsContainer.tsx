@@ -8,16 +8,23 @@ import {
   TypegenDisabled,
 } from "xstate";
 import { Link as RouterLink, useRouteMatch } from "react-router-dom";
-import { makeStyles, Grid, Button, Paper, Typography } from "@material-ui/core";
+import { Grid, Button, Paper, Typography, useTheme } from "@mui/material";
 
 import { AuthMachineContext, AuthMachineEvents, AuthMachineSchema } from "../machines/authMachine";
 import { DataContext, DataEvents, DataSchema } from "../machines/dataMachine";
 import EpicorConnectionForm from "../components/EpicorConnectionForm";
-import BankAccountList from "../components/BankAccountList";
+import EpicorConnectionList from "../components/EpicorConnectionList";
 
 export interface Props {
   authService: Interpreter<AuthMachineContext, AuthMachineSchema, AuthMachineEvents, any, any>;
-  bankAccountsService: Interpreter<
+  // bankAccountsService: Interpreter<
+  //   DataContext,
+  //   DataSchema,
+  //   DataEvents,
+  //   any,
+  //   ResolveTypegenMeta<TypegenDisabled, DataEvents, BaseActionObject, ServiceMap>
+  // >;
+  epicorConnectionsService: Interpreter<
     DataContext,
     DataSchema,
     DataEvents,
@@ -26,52 +33,65 @@ export interface Props {
   >;
 }
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
+const EpicorConnectionsContainer: React.FC<Props> = ({
+  authService,
+  // bankAccountsService,
+  epicorConnectionsService,
+}) => {
+  const match = useRouteMatch();
+  const theme = useTheme();
+  const [authState] = useActor(authService);
+  // const [bankAccountsState, sendBankAccounts] = useActor(bankAccountsService);
+  const [epicorConnectionsState, sendEpicorConnections] = useActor(epicorConnectionsService);
+
+  const paperStyle = {
     padding: theme.spacing(2),
     display: "flex",
     overflow: "auto",
     flexDirection: "column",
-  },
-}));
-
-const BankAccountsContainer: React.FC<Props> = ({ authService, bankAccountsService }) => {
-  const match = useRouteMatch();
-  const classes = useStyles();
-  const [authState] = useActor(authService);
-  const [bankAccountsState, sendBankAccounts] = useActor(bankAccountsService);
+  };
 
   const currentUser = authState?.context.user;
 
-  const createBankAccount = (payload: any) => {
-    sendBankAccounts({ type: "CREATE", ...payload });
+  // const createBankAccount = (payload: any) => {
+  //   sendBankAccounts({ type: "CREATE", ...payload });
+  // };
+  const createEpicorConnection = (payload: any) => {
+    sendEpicorConnections({ type: "CREATE", ...payload });
   };
 
-  const deleteBankAccount = (payload: any) => {
-    sendBankAccounts({ type: "DELETE", ...payload });
+  // const deleteBankAccount = (payload: any) => {
+  //   sendBankAccounts({ type: "DELETE", ...payload });
+  // };
+  const deleteEpicorConnection = (payload: any) => {
+    sendEpicorConnections({ type: "DELETE", ...payload });
   };
 
   useEffect(() => {
-    sendBankAccounts("FETCH");
-  }, [sendBankAccounts]);
+    // sendBankAccounts("FETCH");
+    sendEpicorConnections("FETCH");
+  }, [sendEpicorConnections]);
 
-  if (match.url === "/bankaccounts/new" && currentUser?.id) {
+  if (match.url === "/epicorconnections/new" && currentUser?.id) {
     return (
-      <Paper className={classes.paper}>
+      <Paper sx={{ ...paperStyle }}>
         <Typography component="h2" variant="h6" color="primary" gutterBottom>
-          Create Bank Account
+          Create Epicor Connection
         </Typography>
-        <EpicorConnectionForm userId={currentUser?.id} createEpicorConnection={createBankAccount} />
+        <EpicorConnectionForm
+          userId={currentUser?.id}
+          createEpicorConnection={createEpicorConnection}
+        />
       </Paper>
     );
   }
 
   return (
-    <Paper className={classes.paper}>
-      <Grid container direction="row" justify="space-between" alignItems="center">
+    <Paper sx={{ ...paperStyle }}>
+      <Grid container direction="row" justifyContent="space-between" alignItems="center">
         <Grid item>
           <Typography component="h2" variant="h6" color="primary" gutterBottom>
-            Bank Accounts
+            Epicor Connections
           </Typography>
         </Grid>
         <Grid item>
@@ -80,18 +100,23 @@ const BankAccountsContainer: React.FC<Props> = ({ authService, bankAccountsServi
             color="primary"
             size="large"
             component={RouterLink}
-            to="/bankaccounts/new"
-            data-test="bankaccount-new"
+            to="/epicorconnections/new"
+            // data-test="bankaccount-new"
+            data-test="epicorconnection-new"
           >
             Create
           </Button>
         </Grid>
       </Grid>
-      <BankAccountList
+      {/* <BankAccountList
         bankAccounts={bankAccountsState?.context.results!}
         deleteBankAccount={deleteBankAccount}
+      /> */}
+      <EpicorConnectionList
+        epicorConnections={epicorConnectionsState?.context.results!}
+        deleteEpicorConnection={deleteEpicorConnection}
       />
     </Paper>
   );
 };
-export default BankAccountsContainer;
+export default EpicorConnectionsContainer;

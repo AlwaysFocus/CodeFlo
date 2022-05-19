@@ -31,7 +31,14 @@ import CodeReviewIllustration from "../components/SvgUndrawCodeReview";
 
 export interface Props {
   authService: Interpreter<AuthMachineContext, AuthMachineSchema, AuthMachineEvents, any, any>;
-  bankAccountsService: Interpreter<
+  // bankAccountsService: Interpreter<
+  //   DataContext,
+  //   DataSchema,
+  //   DataEvents,
+  //   any,
+  //   ResolveTypegenMeta<TypegenDisabled, DataEvents, BaseActionObject, ServiceMap>
+  // >;
+  epicorConnectionsService: Interpreter<
     DataContext,
     DataSchema,
     DataEvents,
@@ -40,33 +47,33 @@ export interface Props {
   >;
 }
 
-const UserOnboardingContainer: React.FC<Props> = ({ authService, bankAccountsService }) => {
+const UserOnboardingContainer: React.FC<Props> = ({ authService, epicorConnectionsService }) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const [bankAccountsState, sendBankAccounts] = useActor(bankAccountsService);
+  const [epicorConnectionsState, sendEpicorConnections] = useActor(epicorConnectionsService);
   const [authState, sendAuth] = useActor(authService);
   const [userOnboardingState, sendUserOnboarding] = useMachine(userOnboardingMachine);
 
   const currentUser = authState?.context?.user;
 
   useEffect(() => {
-    sendBankAccounts("FETCH");
-  }, [sendBankAccounts]);
+    sendEpicorConnections("FETCH");
+  }, [sendEpicorConnections]);
 
-  const noBankAccounts =
-    bankAccountsState?.matches("success.withoutData") &&
-    isEmpty(bankAccountsState?.context?.results);
+  const noEpicorConnections =
+    epicorConnectionsState?.matches("success.withoutData") &&
+    isEmpty(epicorConnectionsState?.context?.results);
 
   const dialogIsOpen =
-    (userOnboardingState.matches("stepTwo") && !noBankAccounts) ||
-    (userOnboardingState.matches("stepThree") && !noBankAccounts) ||
-    (!userOnboardingState.matches("done") && noBankAccounts) ||
+    (userOnboardingState.matches("stepTwo") && !noEpicorConnections) ||
+    (userOnboardingState.matches("stepThree") && !noEpicorConnections) ||
+    (!userOnboardingState.matches("done") && noEpicorConnections) ||
     false;
 
   const nextStep = () => sendUserOnboarding("NEXT");
 
-  const createBankAccountWithNextStep = (payload: any) => {
-    sendBankAccounts({ type: "CREATE", ...payload });
+  const createEpicorConnectionWithNextStep = (payload: any) => {
+    sendEpicorConnections({ type: "CREATE", ...payload });
     nextStep();
   };
 
@@ -95,7 +102,7 @@ const UserOnboardingContainer: React.FC<Props> = ({ authService, bankAccountsSer
           {userOnboardingState.matches("stepTwo") && (
             <EpicorConnectionForm
               userId={currentUser?.id!}
-              createEpicorConnection={createBankAccountWithNextStep}
+              createEpicorConnection={createEpicorConnectionWithNextStep}
               onboarding
             />
           )}
@@ -107,7 +114,7 @@ const UserOnboardingContainer: React.FC<Props> = ({ authService, bankAccountsSer
                 You're all set!
                 <br />
                 <br />
-                We're excited to have you aboard the Real World App!
+                Time to let the Code Flow!
               </DialogContentText>
             </>
           )}

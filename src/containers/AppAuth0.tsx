@@ -11,6 +11,7 @@ import AlertBar from "../components/AlertBar";
 import { bankAccountsMachine } from "../machines/bankAccountsMachine";
 import PrivateRoutesContainer from "./PrivateRoutesContainer";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import { epicorConnectionsMachine } from "machines/epicorConnectionsMachine";
 
 // @ts-ignore
 if (window.Cypress) {
@@ -34,7 +35,7 @@ const AppAuth0: React.FC = () => {
 
   const [, , snackbarService] = useMachine(snackbarMachine);
 
-  const [, , bankAccountsService] = useMachine(bankAccountsMachine);
+  const [, , epicorConnectionsService] = useMachine(epicorConnectionsMachine);
 
   // @ts-ignore
   if (window.Cypress) {
@@ -71,7 +72,7 @@ const AppAuth0: React.FC = () => {
           notificationsService={notificationsService}
           authService={authService}
           snackbarService={snackbarService}
-          bankAccountsService={bankAccountsService}
+          epicorConnectionsService={epicorConnectionsService}
         />
       )}
 

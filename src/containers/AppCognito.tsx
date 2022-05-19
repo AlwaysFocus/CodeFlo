@@ -7,7 +7,6 @@ import { snackbarMachine } from "../machines/snackbarMachine";
 import { notificationsMachine } from "../machines/notificationsMachine";
 import { authService } from "../machines/authMachine";
 import AlertBar from "../components/AlertBar";
-import { bankAccountsMachine } from "../machines/bankAccountsMachine";
 import PrivateRoutesContainer from "./PrivateRoutesContainer";
 import Amplify, { Auth } from "aws-amplify";
 import { AmplifyAuthenticator, AmplifySignUp, AmplifySignIn } from "@aws-amplify/ui-react";
@@ -15,6 +14,7 @@ import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 
 // @ts-ignore
 import awsConfig from "../aws-exports";
+import { epicorConnectionsMachine } from "machines/epicorConnectionsMachine";
 
 Amplify.configure(awsConfig);
 
@@ -38,7 +38,7 @@ const AppCognito: React.FC = /* istanbul ignore next */ () => {
 
   const [, , snackbarService] = useMachine(snackbarMachine);
 
-  const [, , bankAccountsService] = useMachine(bankAccountsMachine);
+  const [, , epicorConnectionsService] = useMachine(epicorConnectionsMachine);
 
   useEffect(() => {
     return onAuthUIStateChange((nextAuthState, authData) => {
@@ -72,7 +72,7 @@ const AppCognito: React.FC = /* istanbul ignore next */ () => {
         notificationsService={notificationsService}
         authService={authService}
         snackbarService={snackbarService}
-        bankAccountsService={bankAccountsService}
+        epicorConnectionsService={epicorConnectionsService}
       />
 
       <AlertBar snackbarService={snackbarService} />

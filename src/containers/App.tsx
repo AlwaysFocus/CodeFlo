@@ -11,6 +11,7 @@ import AlertBar from "../components/AlertBar";
 import SignInForm from "../components/SignInForm";
 import SignUpForm from "../components/SignUpForm";
 import { bankAccountsMachine } from "../machines/bankAccountsMachine";
+import { epicorConnectionsMachine } from "../machines/epicorConnectionsMachine";
 import PrivateRoutesContainer from "./PrivateRoutesContainer";
 
 // @ts-ignore
@@ -30,7 +31,9 @@ const App: React.FC = () => {
 
   const [, , snackbarService] = useMachine(snackbarMachine);
 
-  const [, , bankAccountsService] = useMachine(bankAccountsMachine);
+  // const [, , bankAccountsService] = useMachine(bankAccountsMachine);
+
+  const [, , epicorConnectionsService] = useMachine(epicorConnectionsMachine);
 
   const isLoggedIn =
     authState.matches("authorized") ||
@@ -47,7 +50,7 @@ const App: React.FC = () => {
           notificationsService={notificationsService}
           authService={authService}
           snackbarService={snackbarService}
-          bankAccountsService={bankAccountsService}
+          epicorConnectionsService={epicorConnectionsService}
         />
       )}
       {authState.matches("unauthorized") && (

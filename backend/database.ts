@@ -46,6 +46,7 @@ import {
   NotificationResponseItem,
   TransactionQueryPayload,
   DefaultPrivacyLevel,
+  EpicorConnection,
 } from "../src/models";
 import Fuse from "fuse.js";
 import {
@@ -85,6 +86,7 @@ const LIKE_TABLE = "likes";
 const COMMENT_TABLE = "comments";
 const NOTIFICATION_TABLE = "notifications";
 const BANK_TRANSFER_TABLE = "banktransfers";
+const EPICOR_CONNECTION_TABLE = "epicorconnections";
 
 const databaseFile = path.join(__dirname, "../data/database.json");
 const adapter = new FileSync<DbSchema>(databaseFile);
@@ -830,6 +832,57 @@ export const getRandomUser = () => {
   const users = getAllUsers();
   return sample(users)!;
 };
+
+/** EpicorConnection Functions */
+export const getEpicorConnectionBy = (key: string, value: any) =>
+  getBy(EPICOR_CONNECTION_TABLE, key, value);
+
+export const getEpicorConnectionById = (id: string) => getEpicorConnectionBy("id", id);
+
+export const getEpicorConnectionsBy = (key: string, value: any) =>
+  getAllBy(EPICOR_CONNECTION_TABLE, key, value);
+
+export const createEpicorConnection = (epicorConnection: EpicorConnection) => {
+  db.get(EPICOR_CONNECTION_TABLE).push(epicorConnection).write();
+
+  // manual lookup after create
+  return getEpicorConnectionBy("id", epicorConnection.id);
+};
+
+export const getEpicorConnectionsByUserId = (userId: string) =>
+  getEpicorConnectionsBy("userId", userId);
+
+export const createEpicorConnectionForUser = (
+  userId: string,
+  connectionDetails: Partial<EpicorConnection>
+) => {
+  const connectionId = shortid();
+  const epicorconnection: EpicorConnection = {
+    id: connectionId,
+    uuid: v4(),
+    userId,
+    epicorUrl: connectionDetails.epicorUrl!,
+    epicorApiKey: connectionDetails.epicorApiKey!,
+    epicorUsername: connectionDetails.epicorUsername!,
+    epicorPassword: connectionDetails.epicorPassword!,
+    isDeleted: false,
+    createdAt: new Date(),
+    modifiedAt: new Date(),
+  };
+
+  // Write Epicor Connection record to the database
+  const result = createEpicorConnection(epicorconnection);
+
+  return result;
+};
+
+export const removeEpicorConnectionById = (epicorConnectionId: string) => {
+  db.get(BANK_ACCOUNT_TABLE)
+    .find({ id: epicorConnectionId })
+    .assign({ isDeleted: true }) // soft delete
+    .write();
+};
+/** End EpicorConnection Functions */
 
 /* istanbul ignore next */
 export const getAllContacts = () => db.get(CONTACT_TABLE).value();

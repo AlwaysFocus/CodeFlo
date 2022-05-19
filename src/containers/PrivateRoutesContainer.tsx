@@ -12,7 +12,7 @@ import PrivateRoute from "../components/PrivateRoute";
 import TransactionsContainer from "./TransactionsContainer";
 import UserSettingsContainer from "./UserSettingsContainer";
 import NotificationsContainer from "./NotificationsContainer";
-import BankAccountsContainer from "./BankAccountsContainer";
+import EpicorConnectionsContainer from "./BankAccountsContainer";
 import TransactionCreateContainer from "./TransactionCreateContainer";
 import TransactionDetailContainer from "./TransactionDetailContainer";
 import { DataContext, DataSchema, DataEvents } from "../machines/dataMachine";
@@ -38,7 +38,14 @@ export interface Props {
     any,
     ResolveTypegenMeta<TypegenDisabled, SnackbarEvents, BaseActionObject, ServiceMap>
   >;
-  bankAccountsService: Interpreter<
+  // bankAccountsService: Interpreter<
+  //   DataContext,
+  //   DataSchema,
+  //   DataEvents,
+  //   any,
+  //   ResolveTypegenMeta<TypegenDisabled, DataEvents, BaseActionObject, ServiceMap>
+  // >;
+  epicorConnectionsService: Interpreter<
     DataContext,
     DataSchema,
     DataEvents,
@@ -52,7 +59,7 @@ const PrivateRoutesContainer: React.FC<Props> = ({
   authService,
   notificationsService,
   snackbarService,
-  bankAccountsService,
+  epicorConnectionsService,
 }) => {
   const [, sendNotifications] = useActor(notificationsService);
 
@@ -64,7 +71,8 @@ const PrivateRoutesContainer: React.FC<Props> = ({
     <MainLayout notificationsService={notificationsService} authService={authService}>
       <UserOnboardingContainer
         authService={authService}
-        bankAccountsService={bankAccountsService}
+        epicorConnectionsService={epicorConnectionsService}
+        // bankAccountsService={bankAccountsService}
       />
       <Switch>
         <PrivateRoute isLoggedIn={isLoggedIn} exact path={"/(public|contacts|personal)?"}>
@@ -79,10 +87,10 @@ const PrivateRoutesContainer: React.FC<Props> = ({
             notificationsService={notificationsService}
           />
         </PrivateRoute>
-        <PrivateRoute isLoggedIn={isLoggedIn} path="/bankaccounts*">
-          <BankAccountsContainer
+        <PrivateRoute isLoggedIn={isLoggedIn} path="/epicorconnections*">
+          <EpicorConnectionsContainer
             authService={authService}
-            bankAccountsService={bankAccountsService}
+            epicorConnectionsService={epicorConnectionsService}
           />
         </PrivateRoute>
         <PrivateRoute isLoggedIn={isLoggedIn} exact path="/transaction/new">

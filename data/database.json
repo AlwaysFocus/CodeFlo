@@ -76,15 +76,15 @@
       "modifiedAt": "2020-05-21T15:15:33.944Z"
     },
     {
-      "id": "S0T14wEsp",
-      "uuid": "21b23bd1-8bb9-4fca-aa0f-531c64b498bd",
+      "id": "sL873cnN7",
+      "uuid": "5f916f25-b1cb-42e3-a31e-ae007d31db89",
       "firstName": "Eli",
       "lastName": "Whalen",
       "username": "alwaysfocus",
-      "password": "$2a$10$PilvJTyStYKwzTlGqg6ySuS.2rq5SPxyBf1IpKWBb9bmdu7Kc51N6",
+      "password": "$2a$10$Xy.zCoVL1oInv01R6KprMethQVQdh1PEWF6bnoD0jaVn12qrDC.2i",
       "balance": 0,
-      "createdAt": "2022-05-19T01:24:59.456Z",
-      "modifiedAt": "2022-05-19T01:24:59.456Z"
+      "createdAt": "2022-05-19T04:06:43.063Z",
+      "modifiedAt": "2022-05-19T04:06:43.063Z"
     }
   ],
   "contacts": [
@@ -10994,6 +10994,20 @@
       "transactionId": "jtdpSmWcsJxk",
       "createdAt": "2019-10-10T05:09:20.517Z",
       "modifiedAt": "2020-05-21T12:24:00.749Z"
+    }
+  ],
+  "epicorconnections": [
+    {
+      "id": "AmBkoJXMf",
+      "uuid": "72fa0c2a-bff3-4a77-87b2-139ca26cf4ed",
+      "userId": "sL873cnN7",
+      "epicorUrl": "https://www.desktop-d94rt1r/Kinetic2022/",
+      "epicorApiKey": "85e1MBm1U52uavqusxHuaa9JfGPZ3F8Dp5vIPvyjcnFaj",
+      "epicorUsername": "epicor",
+      "epicorPassword": "epicor",
+      "isDeleted": false,
+      "createdAt": "2022-05-19T04:07:22.589Z",
+      "modifiedAt": "2022-05-19T04:07:22.589Z"
     }
   ]
 }
