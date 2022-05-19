@@ -22,11 +22,12 @@ import { isEmpty } from "lodash/fp";
 import { useActor, useMachine } from "@xstate/react";
 
 import { userOnboardingMachine } from "../machines/userOnboardingMachine";
-import BankAccountForm from "../components/BankAccountForm";
+import EpicorConnectionForm from "../components/EpicorConnectionForm";
 import { DataContext, DataEvents, DataSchema } from "../machines/dataMachine";
 import { AuthMachineContext, AuthMachineEvents, AuthMachineSchema } from "../machines/authMachine";
 import NavigatorIllustration from "../components/SvgUndrawNavigatorA479";
 import PersonalFinance from "../components/SvgUndrawPersonalFinanceTqcd";
+import CodeReviewIllustration from "../components/SvgUndrawCodeReview";
 
 export interface Props {
   authService: Interpreter<AuthMachineContext, AuthMachineSchema, AuthMachineEvents, any, any>;
@@ -72,28 +73,29 @@ const UserOnboardingContainer: React.FC<Props> = ({ authService, bankAccountsSer
   return (
     <Dialog data-test="user-onboarding-dialog" fullScreen={fullScreen} open={dialogIsOpen}>
       <DialogTitle data-test="user-onboarding-dialog-title">
-        {userOnboardingState.matches("stepOne") && "Get Started with Real World App"}
-        {userOnboardingState.matches("stepTwo") && "Create Bank Account"}
+        {userOnboardingState.matches("stepOne") && "Get Started with CodeFlo"}
+        {userOnboardingState.matches("stepTwo") && "Enter Epicor Connection Info"}
         {userOnboardingState.matches("stepThree") && "Finished"}
       </DialogTitle>
       <DialogContent data-test="user-onboarding-dialog-content">
         <Box display="flex" alignItems="center" justifyContent="center">
           {userOnboardingState.matches("stepOne") && (
             <>
-              <NavigatorIllustration />
+              {/* <NavigatorIllustration /> */}
+              <CodeReviewIllustration />
               <br />
               <DialogContentText style={{ paddingLeft: 20 }}>
-                Real World App requires a Bank Account to perform transactions.
+                CodeFlo requires a connection to your Epicor Environment to work.
                 <br />
                 <br />
-                Click <b>Next</b> to begin setup of your Bank Account.
+                Click <b>Next</b> to begin setup of your Epicor Connection.
               </DialogContentText>
             </>
           )}
           {userOnboardingState.matches("stepTwo") && (
-            <BankAccountForm
+            <EpicorConnectionForm
               userId={currentUser?.id!}
-              createBankAccount={createBankAccountWithNextStep}
+              createEpicorConnection={createBankAccountWithNextStep}
               onboarding
             />
           )}

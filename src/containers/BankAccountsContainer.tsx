@@ -12,7 +12,7 @@ import { makeStyles, Grid, Button, Paper, Typography } from "@material-ui/core";
 
 import { AuthMachineContext, AuthMachineEvents, AuthMachineSchema } from "../machines/authMachine";
 import { DataContext, DataEvents, DataSchema } from "../machines/dataMachine";
-import BankAccountForm from "../components/BankAccountForm";
+import EpicorConnectionForm from "../components/EpicorConnectionForm";
 import BankAccountList from "../components/BankAccountList";
 
 export interface Props {
@@ -61,7 +61,7 @@ const BankAccountsContainer: React.FC<Props> = ({ authService, bankAccountsServi
         <Typography component="h2" variant="h6" color="primary" gutterBottom>
           Create Bank Account
         </Typography>
-        <BankAccountForm userId={currentUser?.id} createBankAccount={createBankAccount} />
+        <EpicorConnectionForm userId={currentUser?.id} createEpicorConnection={createBankAccount} />
       </Paper>
     );
   }

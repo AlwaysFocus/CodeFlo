@@ -194,6 +194,7 @@ export const createUser = (userDetails: Partial<User>): User => {
   };
 
   saveUser(user);
+  console.log(`Creating user: ${JSON.stringify(user)}`);
   return user;
 };
 
