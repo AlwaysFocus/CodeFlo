@@ -74,17 +74,6 @@
       "balance": 75369,
       "createdAt": "2020-02-11T21:26:46.510Z",
       "modifiedAt": "2020-05-21T15:15:33.944Z"
-    },
-    {
-      "id": "sL873cnN7",
-      "uuid": "5f916f25-b1cb-42e3-a31e-ae007d31db89",
-      "firstName": "Eli",
-      "lastName": "Whalen",
-      "username": "alwaysfocus",
-      "password": "$2a$10$Xy.zCoVL1oInv01R6KprMethQVQdh1PEWF6bnoD0jaVn12qrDC.2i",
-      "balance": 0,
-      "createdAt": "2022-05-19T04:06:43.063Z",
-      "modifiedAt": "2022-05-19T04:06:43.063Z"
     }
   ],
   "contacts": [
@@ -10996,18 +10985,5 @@
       "modifiedAt": "2020-05-21T12:24:00.749Z"
     }
   ],
-  "epicorconnections": [
-    {
-      "id": "AmBkoJXMf",
-      "uuid": "72fa0c2a-bff3-4a77-87b2-139ca26cf4ed",
-      "userId": "sL873cnN7",
-      "epicorUrl": "https://www.desktop-d94rt1r/Kinetic2022/",
-      "epicorApiKey": "85e1MBm1U52uavqusxHuaa9JfGPZ3F8Dp5vIPvyjcnFaj",
-      "epicorUsername": "epicor",
-      "epicorPassword": "epicor",
-      "isDeleted": false,
-      "createdAt": "2022-05-19T04:07:22.589Z",
-      "modifiedAt": "2022-05-19T04:07:22.589Z"
-    }
-  ]
+  "epicorconnections": []
 }

@@ -17,7 +17,8 @@ const Query = {
     /* istanbul ignore next */
     try {
       const connections = getEpicorConnectionsByUserId(ctx.user.id!);
-
+      console.log("Inside listEpicorConnection");
+      console.log(connections);
       return connections;
       /* istanbul ignore next */
     } catch (err: any) {

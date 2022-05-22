@@ -12,7 +12,7 @@ import PrivateRoute from "../components/PrivateRoute";
 import TransactionsContainer from "./TransactionsContainer";
 import UserSettingsContainer from "./UserSettingsContainer";
 import NotificationsContainer from "./NotificationsContainer";
-import EpicorConnectionsContainer from "./BankAccountsContainer";
+import EpicorConnectionsContainer from "./EpicorConnectionsContainer";
 import TransactionCreateContainer from "./TransactionCreateContainer";
 import TransactionDetailContainer from "./TransactionDetailContainer";
 import { DataContext, DataSchema, DataEvents } from "../machines/dataMachine";
@@ -38,13 +38,6 @@ export interface Props {
     any,
     ResolveTypegenMeta<TypegenDisabled, SnackbarEvents, BaseActionObject, ServiceMap>
   >;
-  // bankAccountsService: Interpreter<
-  //   DataContext,
-  //   DataSchema,
-  //   DataEvents,
-  //   any,
-  //   ResolveTypegenMeta<TypegenDisabled, DataEvents, BaseActionObject, ServiceMap>
-  // >;
   epicorConnectionsService: Interpreter<
     DataContext,
     DataSchema,
@@ -72,7 +65,6 @@ const PrivateRoutesContainer: React.FC<Props> = ({
       <UserOnboardingContainer
         authService={authService}
         epicorConnectionsService={epicorConnectionsService}
-        // bankAccountsService={bankAccountsService}
       />
       <Switch>
         <PrivateRoute isLoggedIn={isLoggedIn} exact path={"/(public|contacts|personal)?"}>

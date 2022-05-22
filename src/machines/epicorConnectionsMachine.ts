@@ -74,6 +74,7 @@ export const epicorConnectionsMachine = dataMachine("EpicorConnections").withCon
     },
     createData: async (ctx, event: any) => {
       const payload = omit("type", event);
+      console.log(payload);
       const resp = await httpClient.post(`http://localhost:${backendPort}/graphql`, {
         operationName: "CreateEpicorConnection",
         query: createEpicorConnectionMutation.loc?.source.body,

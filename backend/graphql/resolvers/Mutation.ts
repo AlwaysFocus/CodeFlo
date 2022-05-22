@@ -15,8 +15,9 @@ const Mutation = {
     return true;
   },
   createEpicorConnection: (obj: any, args: any, ctx: any) => {
-    const account = createEpicorConnectionForUser(ctx.user.id!, args);
-    return account;
+    const connection = createEpicorConnectionForUser(ctx.user.id!, args);
+    console.log(connection);
+    return connection;
   },
   deleteEpicorConnection: (obj: any, args: any, ctx: any) => {
     removeEpicorConnectionById(args.id);

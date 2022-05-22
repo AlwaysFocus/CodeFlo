@@ -17,13 +17,6 @@ import EpicorConnectionList from "../components/EpicorConnectionList";
 
 export interface Props {
   authService: Interpreter<AuthMachineContext, AuthMachineSchema, AuthMachineEvents, any, any>;
-  // bankAccountsService: Interpreter<
-  //   DataContext,
-  //   DataSchema,
-  //   DataEvents,
-  //   any,
-  //   ResolveTypegenMeta<TypegenDisabled, DataEvents, BaseActionObject, ServiceMap>
-  // >;
   epicorConnectionsService: Interpreter<
     DataContext,
     DataSchema,
@@ -41,7 +34,6 @@ const EpicorConnectionsContainer: React.FC<Props> = ({
   const match = useRouteMatch();
   const theme = useTheme();
   const [authState] = useActor(authService);
-  // const [bankAccountsState, sendBankAccounts] = useActor(bankAccountsService);
   const [epicorConnectionsState, sendEpicorConnections] = useActor(epicorConnectionsService);
 
   const paperStyle = {
@@ -53,22 +45,15 @@ const EpicorConnectionsContainer: React.FC<Props> = ({
 
   const currentUser = authState?.context.user;
 
-  // const createBankAccount = (payload: any) => {
-  //   sendBankAccounts({ type: "CREATE", ...payload });
-  // };
   const createEpicorConnection = (payload: any) => {
     sendEpicorConnections({ type: "CREATE", ...payload });
   };
 
-  // const deleteBankAccount = (payload: any) => {
-  //   sendBankAccounts({ type: "DELETE", ...payload });
-  // };
   const deleteEpicorConnection = (payload: any) => {
     sendEpicorConnections({ type: "DELETE", ...payload });
   };
 
   useEffect(() => {
-    // sendBankAccounts("FETCH");
     sendEpicorConnections("FETCH");
   }, [sendEpicorConnections]);
 

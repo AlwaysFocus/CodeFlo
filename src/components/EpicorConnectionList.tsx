@@ -1,9 +1,7 @@
 import React from "react";
 import { List } from "@material-ui/core";
-
-import { BankAccount } from "../models";
 import { EpicorConnection } from "../models";
-import BankAccountItem from "./EpicorConnectionItem";
+import EpicorConnectionItem from "./EpicorConnectionItem";
 import EmptyList from "./EmptyList";
 
 // export interface BankAccountListProps {
@@ -23,10 +21,13 @@ const EpicorConnectionList: React.FC<EpicorConnectionListProps> = ({
   return (
     <>
       {epicorConnections?.length > 0 ? (
-        <List data-test="bankaccount-list">
+        <List
+          // data-test="bankaccount-list"
+          data-test="epicorconnection-list"
+        >
           {epicorConnections.map((epicorConnection: EpicorConnection) => (
-            <BankAccountItem
-              key={epicorConnection.id}
+            <EpicorConnectionItem
+              key={epicorConnection.epicorUrl}
               epicorConnection={epicorConnection}
               deleteEpicorConnection={deleteEpicorConnection}
             />

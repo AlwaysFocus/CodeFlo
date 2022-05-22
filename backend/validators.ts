@@ -36,6 +36,13 @@ export const isBankAccountValidator = [
   body("routingNumber").isString().trim(),
 ];
 
+export const isEpicorConnectionValidator = [
+  body("epicorUrl").isString().trim(),
+  body("epicorApiKey").isString().trim(),
+  body("epicorUsername").isString().trim(),
+  body("epicorPassword").isString().trim(),
+];
+
 export const isUserValidator = [
   check("firstName").optional({ checkFalsy: true }).isString().trim(),
   check("lastName").optional({ checkFalsy: true }).isString().trim(),
@@ -108,6 +115,7 @@ export const isValidEntityValidator = [
       "users",
       "contacts",
       "bankaccounts",
+      "epicorconnections",
       "notifications",
       "transactions",
       "likes",

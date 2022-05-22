@@ -24,7 +24,8 @@ import {
   ExitToApp as LogoutIcon,
   Notifications as NotificationsIcon,
   AccountBalance as AccountBalanceIcon,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
+import CableIcon from "@mui/icons-material/Cable";
 
 import { formatAmount } from "../utils/transactionUtils";
 import { AuthMachineContext, AuthMachineEvents } from "../machines/authMachine";
@@ -67,13 +68,14 @@ export const mainListItems = (
       // @ts-ignore
       onClick={() => showTemporaryDrawer && toggleDrawer()}
       component={RouterLink}
-      to="/bankaccounts"
-      data-test="sidenav-bankaccounts"
+      to="/epicorconnections"
+      // data-test="sidenav-bankaccounts"
+      data-test="sidenav-epicorconnections"
     >
       <ListItemIcon>
-        <AccountBalanceIcon />
+        <CableIcon />
       </ListItemIcon>
-      <ListItemText primary="Bank Accounts" />
+      <ListItemText primary="Connections" />
     </ListItem>
     <ListItem
       button
