@@ -10,7 +10,6 @@ import { authService } from "../machines/authMachine";
 import AlertBar from "../components/AlertBar";
 import SignInForm from "../components/SignInForm";
 import SignUpForm from "../components/SignUpForm";
-import { bankAccountsMachine } from "../machines/bankAccountsMachine";
 import { epicorConnectionsMachine } from "../machines/epicorConnectionsMachine";
 import PrivateRoutesContainer from "./PrivateRoutesContainer";
 

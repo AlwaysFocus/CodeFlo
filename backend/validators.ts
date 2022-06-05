@@ -41,6 +41,7 @@ export const isEpicorConnectionValidator = [
   body("epicorApiKey").isString().trim(),
   body("epicorUsername").isString().trim(),
   body("epicorPassword").isString().trim(),
+  body("name").isString().trim(),
 ];
 
 export const isUserValidator = [

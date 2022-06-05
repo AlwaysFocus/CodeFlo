@@ -1,26 +1,27 @@
+import { DefaultPrivacyLevel } from "models";
 import {
-  createBankAccountForUser,
   createEpicorConnectionForUser,
-  removeBankAccountById,
+  createEpicorFunctionForUser,
   removeEpicorConnectionById,
+  removeEpicorFunctionById,
 } from "../../database";
 
 const Mutation = {
-  createBankAccount: (obj: any, args: any, ctx: any) => {
-    const account = createBankAccountForUser(ctx.user.id!, args);
-    return account;
-  },
-  deleteBankAccount: (obj: any, args: any, ctx: any) => {
-    removeBankAccountById(args.id);
-    return true;
-  },
   createEpicorConnection: (obj: any, args: any, ctx: any) => {
     const connection = createEpicorConnectionForUser(ctx.user.id!, args);
-    console.log(connection);
     return connection;
   },
   deleteEpicorConnection: (obj: any, args: any, ctx: any) => {
     removeEpicorConnectionById(args.id);
+    return true;
+  },
+  createEpicorFunction: (obj: any, args: any, ctx: any) => {
+    console.log("Triggered createEpicorFunction in GraphQL server");
+    const func = createEpicorFunctionForUser(ctx.user.id!, args);
+    return func;
+  },
+  deleteEpicorFunction: (obj: any, args: any, ctx: any) => {
+    removeEpicorFunctionById(args.id);
     return true;
   },
 };

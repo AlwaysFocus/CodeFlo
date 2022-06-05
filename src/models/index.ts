@@ -7,3 +7,6 @@ export * from "./comment";
 export * from "./notification";
 export * from "./banktransfer";
 export * from "./epicorconnection";
+export * from "./epicorfunction";
+export * from "./epicorfunctionbody";
+export * from "./epicorfunctionsignature";

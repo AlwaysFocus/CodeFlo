@@ -55,6 +55,7 @@ export const dataMachine = (machineId: string) =>
           },
         },
         loading: {
+          entry: [(context: any) => console.log("Inside dataMachine loading state")],
           invoke: {
             src: "fetchData",
             onDone: { target: "success" },
@@ -62,6 +63,7 @@ export const dataMachine = (machineId: string) =>
           },
         },
         updating: {
+          entry: [(context: any) => console.log("Inside dataMachine updating state")],
           invoke: {
             src: "updateData",
             onDone: { target: "loading" },
@@ -69,6 +71,7 @@ export const dataMachine = (machineId: string) =>
           },
         },
         creating: {
+          entry: [(context: any) => console.log("Inside dataMachine creating state")],
           invoke: {
             src: "createData",
             onDone: { target: "loading" },
@@ -76,6 +79,7 @@ export const dataMachine = (machineId: string) =>
           },
         },
         deleting: {
+          entry: [(context: any) => console.log("Inside dataMachine deleting state")],
           invoke: {
             src: "deleteData",
             onDone: { target: "loading" },
@@ -83,7 +87,11 @@ export const dataMachine = (machineId: string) =>
           },
         },
         success: {
-          entry: ["setResults", "setPageData"],
+          entry: [
+            "setResults",
+            "setPageData",
+            (context: any) => console.log("Inside dataMachine success state"),
+          ],
           on: {
             FETCH: "loading",
             CREATE: "creating",
@@ -102,7 +110,7 @@ export const dataMachine = (machineId: string) =>
           },
         },
         failure: {
-          entry: ["setMessage"],
+          entry: ["setMessage", (context: any) => console.log("Inside dataMachine failure state")],
           on: {
             FETCH: "loading",
           },

@@ -13,7 +13,7 @@ import TransactionsContainer from "./TransactionsContainer";
 import UserSettingsContainer from "./UserSettingsContainer";
 import NotificationsContainer from "./NotificationsContainer";
 import EpicorConnectionsContainer from "./EpicorConnectionsContainer";
-import TransactionCreateContainer from "./TransactionCreateContainer";
+import EpicorFunctionCreateContainer from "./EpicorFunctionCreateContainer";
 import TransactionDetailContainer from "./TransactionDetailContainer";
 import { DataContext, DataSchema, DataEvents } from "../machines/dataMachine";
 import { AuthMachineContext, AuthMachineEvents, AuthMachineSchema } from "../machines/authMachine";
@@ -85,8 +85,11 @@ const PrivateRoutesContainer: React.FC<Props> = ({
             epicorConnectionsService={epicorConnectionsService}
           />
         </PrivateRoute>
-        <PrivateRoute isLoggedIn={isLoggedIn} exact path="/transaction/new">
-          <TransactionCreateContainer authService={authService} snackbarService={snackbarService} />
+        <PrivateRoute isLoggedIn={isLoggedIn} exact path="/epicor-function/new">
+          <EpicorFunctionCreateContainer
+            authService={authService}
+            snackbarService={snackbarService}
+          />
         </PrivateRoute>
         <PrivateRoute isLoggedIn={isLoggedIn} exact path="/transaction/:transactionId">
           <TransactionDetailContainer authService={authService} />

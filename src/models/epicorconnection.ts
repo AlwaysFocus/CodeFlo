@@ -1,4 +1,5 @@
 export interface EpicorConnection {
+  name: string;
   id: string;
   uuid: string;
   userId: string;
@@ -13,5 +14,5 @@ export interface EpicorConnection {
 
 export type EpicorConnectionPayload = Pick<
   EpicorConnection,
-  "userId" | "epicorUrl" | "epicorApiKey" | "epicorUsername" | "epicorPassword"
+  "name" | "userId" | "epicorUrl" | "epicorApiKey" | "epicorUsername" | "epicorPassword"
 >;

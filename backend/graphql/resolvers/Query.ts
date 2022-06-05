@@ -1,18 +1,6 @@
-import { getBankAccountsByUserId, getEpicorConnectionsByUserId } from "../../database";
+import { getEpicorConnectionsByUserId, getEpicorFunctionsByUserId } from "../../database";
 
 const Query = {
-  listBankAccount(obj: any, args: any, ctx: any) {
-    /* istanbul ignore next */
-    try {
-      const accounts = getBankAccountsByUserId(ctx.user.id!);
-
-      return accounts;
-      /* istanbul ignore next */
-    } catch (err: any) {
-      /* istanbul ignore next */
-      throw new Error(err);
-    }
-  },
   listEpicorConnection(obj: any, args: any, ctx: any) {
     /* istanbul ignore next */
     try {
@@ -20,6 +8,17 @@ const Query = {
       console.log("Inside listEpicorConnection");
       console.log(connections);
       return connections;
+      /* istanbul ignore next */
+    } catch (err: any) {
+      /* istanbul ignore next */
+      throw new Error(err);
+    }
+  },
+  listEpicorFunction(obj: any, args: any, ctx: any) {
+    /* istanbul ignore next */
+    try {
+      const funcs = getEpicorFunctionsByUserId(ctx.user.id!);
+      return funcs;
       /* istanbul ignore next */
     } catch (err: any) {
       /* istanbul ignore next */

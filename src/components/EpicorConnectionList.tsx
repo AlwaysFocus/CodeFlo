@@ -4,11 +4,6 @@ import { EpicorConnection } from "../models";
 import EpicorConnectionItem from "./EpicorConnectionItem";
 import EmptyList from "./EmptyList";
 
-// export interface BankAccountListProps {
-//   bankAccounts: BankAccount[];
-//   deleteBankAccount: Function;
-// }
-
 export interface EpicorConnectionListProps {
   epicorConnections: EpicorConnection[];
   deleteEpicorConnection: Function;
@@ -23,7 +18,7 @@ const EpicorConnectionList: React.FC<EpicorConnectionListProps> = ({
       {epicorConnections?.length > 0 ? (
         <List
           // data-test="bankaccount-list"
-          data-test="epicorconnection-list"
+          data-test="epicor-connection-list"
         >
           {epicorConnections.map((epicorConnection: EpicorConnection) => (
             <EpicorConnectionItem

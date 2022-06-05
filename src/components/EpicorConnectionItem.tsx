@@ -13,11 +13,12 @@ const EpicorConnectionListItem: React.FC<EpicorConnectionListItemProps> = ({
   deleteEpicorConnection,
 }) => {
   return (
-    <ListItem data-test={`bankaccount-list-item-${epicorConnection.id}`}>
+    // <ListItem data-test={`bankaccount-list-item-${epicorConnection.id}`}>
+    <ListItem data-test={`epicorconnection-list-item-${epicorConnection.id}`}>
       <Grid container direction="row" justify="space-between" alignItems="flex-start">
         <Grid item>
           <Typography variant="body1" color="primary" gutterBottom>
-            {epicorConnection.epicorUrl} {epicorConnection.isDeleted ? "(Deleted)" : undefined}
+            {epicorConnection.name} {epicorConnection.isDeleted ? "(Deleted)" : undefined}
           </Typography>
         </Grid>
         {!epicorConnection.isDeleted && (

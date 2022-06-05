@@ -1,42 +1,30 @@
 type Query {
-  listBankAccount: [BankAccount!]
   listEpicorConnection: [EpicorConnection!]
+  listEpicorFunction: [EpicorFunction!]
 }
 
 type Mutation {
-  createBankAccount(
-    bankName: String!,
-    accountNumber: String!,
-    routingNumber: String!
-  ): BankAccount
-  deleteBankAccount(
-    id: ID!
-  ): Boolean
   createEpicorConnection(
-    epicorUrl: String!,
-    epicorApiKey: String!,
+    name: String!
+    epicorUrl: String!
+    epicorApiKey: String!
     epicorUsername: String!
     epicorPassword: String!
   ): EpicorConnection
-  deleteEpicorConnection(
-    id: ID!
-  ): Boolean
-}
+  deleteEpicorConnection(id: ID!): Boolean
 
-type BankAccount {
-  id: ID!
-  uuid: String
-  userId: String
-  bankName: String
-  accountNumber: String
-  routingNumber: String
-  isDeleted: Boolean
-  createdAt: String
-  modifiedAt: String
+  createEpicorFunction(
+    functionId: String!
+    description: String!
+    functionBody: EpicorFunctionBody!
+    functionSignature: EpicorFunctionSignature!
+  ): EpicorFunction
+  deleteEpicorFunction(id: ID!): Boolean
 }
 
 type EpicorConnection {
   id: ID!
+  name: String
   uuid: String
   userId: String
   epicorUrl: String
@@ -46,5 +34,45 @@ type EpicorConnection {
   isDeleted: Boolean
   createdAt: String
   modifiedAt: String
+}
 
+type EpicorFunctionBody {
+  code: String
+  usings: [String]
+}
+
+type EpicorFunctionSignature {
+  response: Boolean
+  parameterID: Int
+  argumentName: String
+  order: Int
+  dataType: String
+  optional: Boolean
+}
+
+enum DefaultPrivacyLevel {
+  public
+  private
+  contacts
+}
+
+type EpicorFunction {
+  id: ID!
+  uuid: String
+  userId: String
+  functionId: String
+  description: String
+  kind: Int
+  requireTransaction: Boolean
+  singleRowMode: Boolean
+  private: Boolean
+  disabled: Boolean
+  invalid: Boolean
+  thumbnail: String
+  body: EpicorFunctionBody
+  functionSignature: EpicorFunctionSignature
+  privacyLevel: DefaultPrivacyLevel
+  isDeleted: Boolean
+  createdAt: String
+  modifiedAt: String
 }

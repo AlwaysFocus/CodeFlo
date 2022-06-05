@@ -6,6 +6,7 @@ import { EpicorConnectionPayload, User } from "../models";
 import { useHistory } from "react-router";
 
 const validationSchema = object({
+  name: string().min(3, "Name must be at least 3 characters long").required("Connection Name"),
   epicorUrl: string().required("Epicor URL"),
   epicorApiKey: string()
     .min(40, "Must contain at least 40 characters")
@@ -34,6 +35,7 @@ const EpicorConnectionForm: React.FC<EpicorConnectionFormProps> = ({
 
   const initialValues: EpicorConnectionPayload = {
     userId,
+    name: "",
     epicorUrl: "",
     epicorApiKey: "",
     epicorUsername: "",
@@ -50,7 +52,7 @@ const EpicorConnectionForm: React.FC<EpicorConnectionFormProps> = ({
         createEpicorConnection({ ...values, userId });
 
         if (!onboarding) {
-          history.push("/epicorconnections");
+          history.push("/epicor-connections");
         }
       }}
     >
@@ -61,8 +63,27 @@ const EpicorConnectionForm: React.FC<EpicorConnectionFormProps> = ({
             marginTop: theme.spacing(1),
           }}
           // data-test="bankaccount-form"
-          data-test="epicorconnection-form"
+          data-test="epicor-connection-form"
         >
+          <Field name="name">
+            {({ field, meta: { error, value, initialValue, touched } }: FieldProps) => (
+              <TextField
+                variant="outlined"
+                margin="dense"
+                fullWidth
+                required
+                // id={"bankaccount-bankName-input"}
+                id={"epicor-connection-name-input"}
+                type="text"
+                placeholder="Connection Name"
+                // data-test={"bankaccount-bankName-input"}
+                data-test={"epicor-connection-name-input"}
+                error={(touched || value !== initialValue) && Boolean(error)}
+                helperText={touched || value !== initialValue ? error : ""}
+                {...field}
+              />
+            )}
+          </Field>
           <Field name="epicorUrl">
             {({ field, meta: { error, value, initialValue, touched } }: FieldProps) => (
               <TextField
@@ -71,11 +92,11 @@ const EpicorConnectionForm: React.FC<EpicorConnectionFormProps> = ({
                 fullWidth
                 required
                 // id={"bankaccount-bankName-input"}
-                id={"epicorconnection-epicorUrl-input"}
+                id={"epicor-connection-epicorUrl-input"}
                 type="text"
                 placeholder="Epicor URL"
                 // data-test={"bankaccount-bankName-input"}
-                data-test={"epicorconnection-epicorUrl-input"}
+                data-test={"epicor-connection-epicorUrl-input"}
                 error={(touched || value !== initialValue) && Boolean(error)}
                 helperText={touched || value !== initialValue ? error : ""}
                 {...field}
@@ -90,11 +111,11 @@ const EpicorConnectionForm: React.FC<EpicorConnectionFormProps> = ({
                 fullWidth
                 required
                 // id={"bankaccount-routingNumber-input"}
-                id={"epicorconnection-epicorApi-input"}
+                id={"epicor-connection-epicorApi-input"}
                 type="text"
                 placeholder="Epicor API Key"
                 // data-test={"bankaccount-routingNumber-input"}
-                data-test={"epicorconnection-epicorApi-input"}
+                data-test={"epicor-connection-epicorApi-input"}
                 error={(touched || value !== initialValue) && Boolean(error)}
                 helperText={touched || value !== initialValue ? error : ""}
                 {...field}
@@ -109,11 +130,11 @@ const EpicorConnectionForm: React.FC<EpicorConnectionFormProps> = ({
                 fullWidth
                 required
                 // id={"bankaccount-accountNumber-input"}
-                id={"epicorconnection-epicorUsername-input"}
+                id={"epicor-connection-epicorUsername-input"}
                 type="text"
                 placeholder="Epicor Username"
                 // data-test={"bankaccount-accountNumber-input"}
-                data-test={"epicorconnection-epicorUsername-input"}
+                data-test={"epicor-connection-epicorUsername-input"}
                 error={(touched || value !== initialValue) && Boolean(error)}
                 helperText={touched || value !== initialValue ? error : ""}
                 {...field}
@@ -127,10 +148,10 @@ const EpicorConnectionForm: React.FC<EpicorConnectionFormProps> = ({
                 margin="dense"
                 fullWidth
                 required
-                id={"epicorconnection-epicorPassword-input"}
+                id={"epicor-connection-epicorPassword-input"}
                 type="password"
                 placeholder="Epicor Password"
-                data-test={"epicorconnection-epicorPassword-input"}
+                data-test={"epicor-connection-epicorPassword-input"}
                 error={(touched || value !== initialValue) && Boolean(error)}
                 helperText={touched || value !== initialValue ? error : ""}
                 {...field}
@@ -152,7 +173,7 @@ const EpicorConnectionForm: React.FC<EpicorConnectionFormProps> = ({
                 color="primary"
                 sx={{ margin: theme.spacing(3, 0, 2) }}
                 // data-test="bankaccount-submit"
-                data-test="epicorconnection-submit"
+                data-test="epicor-connection-submit"
                 disabled={!isValid || isSubmitting}
               >
                 Save

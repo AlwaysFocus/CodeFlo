@@ -8,6 +8,7 @@ const listEpicorConnectionQuery = gql`
   query ListEpicorConnection {
     listEpicorConnection {
       id
+      name
       uuid
       userId
       epicorUrl
@@ -29,18 +30,21 @@ const deleteEpicorConnectionMutation = gql`
 
 const createEpicorConnectionMutation = gql`
   mutation CreateEpicorConnection(
+    $name: String!
     $epicorUrl: String!
     $epicorApiKey: String!
     $epicorUsername: String!
     $epicorPassword: String!
   ) {
     createEpicorConnection(
+      name: $name
       epicorUrl: $epicorUrl
       epicorApiKey: $epicorApiKey
       epicorUsername: $epicorUsername
       epicorPassword: $epicorPassword
     ) {
       id
+      name
       uuid
       userId
       epicorUrl
@@ -53,7 +57,7 @@ const createEpicorConnectionMutation = gql`
   }
 `;
 
-export const epicorConnectionsMachine = dataMachine("EpicorConnections").withConfig({
+export const epicorConnectionsMachine = dataMachine("epicorConnections").withConfig({
   services: {
     fetchData: async (ctx, event: any) => {
       const resp = await httpClient.post(`http://localhost:${backendPort}/graphql`, {
@@ -74,7 +78,6 @@ export const epicorConnectionsMachine = dataMachine("EpicorConnections").withCon
     },
     createData: async (ctx, event: any) => {
       const payload = omit("type", event);
-      console.log(payload);
       const resp = await httpClient.post(`http://localhost:${backendPort}/graphql`, {
         operationName: "CreateEpicorConnection",
         query: createEpicorConnectionMutation.loc?.source.body,

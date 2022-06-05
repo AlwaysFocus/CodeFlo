@@ -31,6 +31,7 @@ import { DataContext, DataEvents, DataSchema } from "../machines/dataMachine";
 import TransactionNavTabs from "./TransactionNavTabs";
 import RWALogo from "./SvgRwaLogo";
 import RWALogoIcon from "./SvgRwaIconLogo";
+import CodeIcon from "@mui/icons-material/Code";
 
 const drawerWidth = 240;
 
@@ -125,10 +126,19 @@ const NavBar: React.FC<NavBarProps> = ({ drawerOpen, toggleDrawer, notifications
           data-test="app-name-logo"
         >
           <Link to="/" style={{ color: "#fff", textDecoration: "none" }} component={RouterLink}>
-            {xsBreakpoint ? (
+            {/* {xsBreakpoint ? (
               <RWALogoIcon className={classes.logo} />
             ) : (
               <RWALogo className={classes.logo} />
+            )} */}
+            {xsBreakpoint ? (
+              // <CodeIcon className={classes.logo} />
+              <Typography>CodeFlo</Typography>
+            ) : (
+              <React.Fragment>
+                <CodeIcon className={classes.logo} />
+                <Typography className={classes.title}>CodeFlo</Typography>
+              </React.Fragment>
             )}
           </Link>
         </Typography>
@@ -137,10 +147,11 @@ const NavBar: React.FC<NavBarProps> = ({ drawerOpen, toggleDrawer, notifications
           variant="contained"
           color="inherit"
           component={RouterLink}
-          to="/transaction/new"
-          data-test="nav-top-new-transaction"
+          to="/epicor-function/new"
+          // data-test="nav-top-new-transaction"
+          data-test="nav-top-new-epicor-function"
         >
-          <AttachMoneyIcon /> New
+          <CodeIcon sx={{ mr: 1 }} /> New
         </Button>
         <IconButton
           color="inherit"
