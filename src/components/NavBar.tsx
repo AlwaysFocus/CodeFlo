@@ -147,7 +147,7 @@ const NavBar: React.FC<NavBarProps> = ({ drawerOpen, toggleDrawer, notifications
           variant="contained"
           color="inherit"
           component={RouterLink}
-          to="/epicor-function/new"
+          to="/epicor-functions/new"
           // data-test="nav-top-new-transaction"
           data-test="nav-top-new-epicor-function"
         >

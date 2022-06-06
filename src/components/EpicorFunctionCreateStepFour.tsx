@@ -29,11 +29,13 @@ export interface EpicorFunctionCreateStepFourProps {
       ServiceMap
     >
   >;
+  createEpicorFunction: Function;
   showSnackbar: Function;
 }
 
 const EpicorFunctionCreateStepFour: React.FC<EpicorFunctionCreateStepFourProps> = ({
   createEpicorFunctionService,
+  createEpicorFunction,
 }) => {
   const history = useHistory();
   const [createEpicorFunctionState, sendCreateEpicorFunction] = useActor(
@@ -105,8 +107,13 @@ const EpicorFunctionCreateStepFour: React.FC<EpicorFunctionCreateStepFourProps> 
               component={RouterLink}
               to="/"
               data-test="new-epicor-function-return-to-epicor-functions"
+              onClick={() => {
+                createEpicorFunction(epicorFunctionDetails);
+                sendCreateEpicorFunction("RESET");
+                history.push("/epicor-functions/personal");
+              }}
             >
-              Return To Functions
+              Submit and Exit
             </Button>
           </Grid>
           <Grid item>
@@ -115,13 +122,13 @@ const EpicorFunctionCreateStepFour: React.FC<EpicorFunctionCreateStepFourProps> 
               size="small"
               /* istanbul ignore next */
               onClick={() => {
+                createEpicorFunction(epicorFunctionDetails);
                 sendCreateEpicorFunction("RESET");
-                // sendCreateEpicorFunction({ type: "CREATE", epicorFunctionDetails });
-                history.push("/epicor-function/new");
+                history.push("/epicor-functions/new");
               }}
               data-test="new-epicor-function-create-another-epicor-function"
             >
-              Create Function
+              Create Another Function
             </Button>
           </Grid>
         </Grid>

@@ -30,10 +30,8 @@ export type EpicorFunctionPayload = Pick<EpicorFunction, "functionId" | "descrip
 export interface EpicorFunctionResponseItem extends EpicorFunction {
   likes: Like[];
   comments: Comment[];
-  receiverName: string;
-  receiverAvatar: string;
-  senderName: string;
-  senderAvatar: string;
+  functionId: string;
+  description: string;
 }
 
 // export type TransactionCreatePayload = Partial<

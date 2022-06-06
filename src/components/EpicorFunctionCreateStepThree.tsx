@@ -142,7 +142,6 @@ const EpicorFunctionCreateStepThree: React.FC<EpicorFunctionCreateStepThreeProps
                     // data-test="transaction-create-submit-request"
                     data-test="epicor-function-signature-submit-request"
                     disabled={!isValid || isSubmitting}
-                    onClick={() => {}}
                   >
                     Next
                   </Button>

@@ -22,18 +22,19 @@ const createEpicorFunctionMutation = gql`
   mutation CreateEpicorFunction(
     $functionId: String!
     $description: String!
-    $functionBody: EpicorFunctionBody
-    $functionSignature: EpicorFunctionSignature!
+    $body: EpicorFunctionBodyInput!
+    $functionSignature: EpicorFunctionSignatureInput!
   ) {
-    createEpicorConnection(
+    createEpicorFunction(
       functionId: $functionId
       description: $description
-      functionBody: $functionBody
+      body: $body
       functionSignature: $functionSignature
     ) {
       id
       uuid
       userId
+      functionId
       description
       kind
       requireTransaction
@@ -42,8 +43,18 @@ const createEpicorFunctionMutation = gql`
       disabled
       invalid
       thumbnail
-      body
-      functionSignature
+      body {
+        code
+        usings
+      }
+      functionSignature {
+        response
+        parameterID
+        argumentName
+        order
+        dataType
+        optional
+      }
       privacyLevel
       isDeleted
       createdAt
@@ -70,7 +81,7 @@ export type CreateEpicorFunctionMachineEvents =
   | { type: "SET_EPICOR_FUNCTION_INFO" }
   | { type: "SET_EPICOR_FUNCTION_BODY" }
   | { type: "SET_EPICOR_FUNCTION_SIGNATURE" }
-  | { type: "CREATE_EPICOR_FUNCTION" }
+  | { type: "CREATE" }
   | { type: "RESET" };
 
 export interface CreateEpicorFunctionMachineContext {
@@ -132,9 +143,18 @@ export const createEpicorFunctionMachine = createMachine(
           autoForward: true,
         },
         on: {
-          CREATE_EPICOR_FUNCTION: {
+          CREATE: {
             target: "stepOne",
-            actions: ["createEpicorFunction"],
+            actions: [
+              "createEpicorFunction",
+              (context: any) => {
+                console.log(
+                  `Triggered create in function state machine.\n context: ${JSON.stringify(
+                    context
+                  )}`
+                );
+              },
+            ],
           },
           RESET: {
             target: "stepOne",
@@ -174,6 +194,7 @@ export const createEpicorFunctionMachine = createMachine(
         });
       },
       createEpicorFunction: (ctx, event: any) => {
+        console.log("Hit createEpicorFunction in the function state machine");
         return;
       },
       clearContext: assign((ctx, event: any) => ({})),

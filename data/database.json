@@ -10985,5 +10985,68 @@
       "modifiedAt": "2020-05-21T12:24:00.749Z"
     }
   ],
-  "epicorconnections": []
+  "epicorconnections": [
+    {
+      "name": "New Connection",
+      "id": "laAsdj1p_",
+      "uuid": "de6cbe19-cda1-4609-80b7-68146309a009",
+      "userId": "t45AiwidW",
+      "epicorUrl": "https://www.desktop-d94rt1r/Kinetic2022/",
+      "epicorApiKey": "85e1MBm1U52uavqusxHuaa9JfGPZ3F8Dp5vIPvyjcnFaj",
+      "epicorUsername": "epicor",
+      "epicorPassword": "sdfsdf",
+      "isDeleted": false,
+      "createdAt": "2022-06-06T02:45:37.928Z",
+      "modifiedAt": "2022-06-06T02:45:37.928Z"
+    },
+    {
+      "name": "New connection",
+      "id": "I1SgfHV5E",
+      "uuid": "ff9c44eb-03cc-41d7-89be-67f3ab9e482a",
+      "userId": "24VniajY1y",
+      "epicorUrl": "123.com",
+      "epicorApiKey": "3333333333333333333333333333333333333333333333",
+      "epicorUsername": "123",
+      "epicorPassword": "123",
+      "isDeleted": false,
+      "createdAt": "2022-06-06T02:46:00.018Z",
+      "modifiedAt": "2022-06-06T02:46:00.018Z"
+    }
+  ],
+  "epicorfunctions": [
+    {
+      "functionId": "New Function",
+      "id": "secA2nfVY",
+      "uuid": "0889983b-e586-42a1-98e3-665f9e517801",
+      "userId": "t45AiwidW",
+      "description": "Cool",
+      "body": {
+        "code": "fsdfsdfsdf",
+        "usings": [
+          "Nice"
+        ]
+      },
+      "functionSignature": {},
+      "isDeleted": false,
+      "createdAt": "2022-06-06T03:00:01.545Z",
+      "modifiedAt": "2022-06-06T03:00:01.545Z"
+    },
+    {
+      "functionId": "new function",
+      "id": "A9HaAWv1g",
+      "uuid": "4294ac97-4e7d-4aa8-8d3e-27c67af4f44c",
+      "userId": "24VniajY1y",
+      "description": "dsfsdf",
+      "body": {
+        "code": "sdfsdfd",
+        "usings": [
+          "sdfsdf"
+        ]
+      },
+      "functionSignature": {},
+      "isDeleted": false,
+      "createdAt": "2022-06-06T03:00:37.630Z",
+      "modifiedAt": "2022-06-06T03:00:37.630Z"
+    }
+  ]
 }

@@ -10,15 +10,15 @@ type Mutation {
     epicorApiKey: String!
     epicorUsername: String!
     epicorPassword: String!
-  ): EpicorConnection
+  ): [EpicorConnection]
   deleteEpicorConnection(id: ID!): Boolean
 
   createEpicorFunction(
     functionId: String!
     description: String!
-    functionBody: EpicorFunctionBody!
-    functionSignature: EpicorFunctionSignature!
-  ): EpicorFunction
+    body: EpicorFunctionBodyInput!
+    functionSignature: EpicorFunctionSignatureInput!
+  ): [EpicorFunction]
   deleteEpicorFunction(id: ID!): Boolean
 }
 
@@ -34,6 +34,21 @@ type EpicorConnection {
   isDeleted: Boolean
   createdAt: String
   modifiedAt: String
+}
+
+
+input EpicorFunctionBodyInput {
+  code: String
+  usings: [String]
+}
+
+input EpicorFunctionSignatureInput {
+  response: Boolean
+  parameterID: Int
+  argumentName: String
+  order: Int
+  dataType: String
+  optional: Boolean
 }
 
 type EpicorFunctionBody {

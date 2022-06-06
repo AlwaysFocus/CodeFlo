@@ -20,6 +20,7 @@ import { AuthMachineContext, AuthMachineEvents, AuthMachineSchema } from "../mac
 import { SnackbarContext, SnackbarSchema, SnackbarEvents } from "../machines/snackbarMachine";
 import { useActor } from "@xstate/react";
 import UserOnboardingContainer from "./UserOnboardingContainer";
+import EpicorFunctionsContainer from "./EpicorFunctionsContainer";
 
 export interface Props {
   isLoggedIn: boolean;
@@ -67,8 +68,15 @@ const PrivateRoutesContainer: React.FC<Props> = ({
         epicorConnectionsService={epicorConnectionsService}
       />
       <Switch>
-        <PrivateRoute isLoggedIn={isLoggedIn} exact path={"/(public|contacts|personal)?"}>
+        {/* <PrivateRoute isLoggedIn={isLoggedIn} exact path={"/(public|contacts|personal)?"}>
           <TransactionsContainer />
+        </PrivateRoute> */}
+        <PrivateRoute
+          isLoggedIn={isLoggedIn}
+          exact
+          path={"/epicor-functions/(public|contacts|personal)?"}
+        >
+          <EpicorFunctionsContainer />
         </PrivateRoute>
         <PrivateRoute isLoggedIn={isLoggedIn} exact path="/user/settings">
           <UserSettingsContainer authService={authService} />
@@ -85,7 +93,7 @@ const PrivateRoutesContainer: React.FC<Props> = ({
             epicorConnectionsService={epicorConnectionsService}
           />
         </PrivateRoute>
-        <PrivateRoute isLoggedIn={isLoggedIn} exact path="/epicor-function/new">
+        <PrivateRoute isLoggedIn={isLoggedIn} exact path="/epicor-functions/new">
           <EpicorFunctionCreateContainer
             authService={authService}
             snackbarService={snackbarService}

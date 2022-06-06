@@ -48,6 +48,7 @@ import {
   DefaultPrivacyLevel,
   EpicorConnection,
   EpicorFunction,
+  EpicorFunctionResponseItem,
 } from "../src/models";
 import Fuse from "fuse.js";
 import {
@@ -609,13 +610,15 @@ export const getLikesByObj = (query: object) => getAllByObj(LIKE_TABLE, query);
 
 export const getLikeById = (id: string): Like => getLikeBy("id", id);
 export const getLikesByTransactionId = (transactionId: string) => getLikesByObj({ transactionId });
+export const getLikesByEpicorFunctionId = (epicorFunctionId: string) =>
+  getLikesByObj({ epicorFunctionId });
 
-export const createLike = (userId: string, transactionId: string): Like => {
+export const createLike = (userId: string, epicorFunctionId: string): Like => {
   const like = {
     id: shortid(),
     uuid: v4(),
     userId,
-    transactionId,
+    epicorFunctionId,
     createdAt: new Date(),
     modifiedAt: new Date(),
   };
@@ -655,6 +658,8 @@ export const getCommentsByObj = (query: object) => getAllByObj(COMMENT_TABLE, qu
 export const getCommentById = (id: string): Comment => getCommentBy("id", id);
 export const getCommentsByTransactionId = (transactionId: string) =>
   getCommentsByObj({ transactionId });
+export const getCommentsByEpicorFunctionId = (epicorFunctionId: string) =>
+  getCommentsByObj({ epicorFunctionId });
 
 export const createComment = (userId: string, transactionId: string, content: string): Comment => {
   const comment = {
@@ -897,6 +902,12 @@ export const getEpicorFunctionsBy = (key: string, value: any) =>
 
 export const createEpicorFunction = (epicorFunction: EpicorFunction) => {
   db.get(EPICOR_FUNCTION_TABLE).push(epicorFunction).write();
+
+  console.log(
+    `Just triggered createEpicorFunction in database file, lookup results: ${JSON.stringify(
+      getEpicorFunctionBy("id", epicorFunction.id)
+    )}`
+  );
   // manual lookup after create
   return getEpicorFunctionsBy("id", epicorFunction.id);
 };
@@ -908,10 +919,10 @@ export const createEpicorFunctionForUser = (
   userId: string,
   functionDetails: Partial<EpicorFunction>
 ) => {
-  const id = shortid();
+  const uniqueId = shortid();
   const epicorfunction: EpicorFunction = {
     functionId: functionDetails.functionId!, // This is the name of the function
-    id,
+    id: uniqueId,
     uuid: v4(),
     userId,
     description: functionDetails.description!,
@@ -929,7 +940,6 @@ export const createEpicorFunctionForUser = (
     createdAt: new Date(),
     modifiedAt: new Date(),
   };
-
   // Write Epicor Function record to the database
   const result = createEpicorFunction(epicorfunction);
   return result;
@@ -941,6 +951,79 @@ export const removeEpicorFunctionById = (id: string) => {
     .assign({ isDeleted: true }) // soft delete
     .write();
 };
+
+export const formatEpicorFunctionForApiResponse = (
+  epicorFunction: EpicorFunction
+): EpicorFunctionResponseItem => {
+  const likes = getLikesByEpicorFunctionId(epicorFunction.id);
+  const comments = getCommentsByEpicorFunctionId(epicorFunction.id);
+
+  return {
+    likes,
+    comments,
+    ...epicorFunction,
+  };
+};
+
+export const getEpicorFunctionsByObj = (query: object) => getAllByObj(EPICOR_FUNCTION_TABLE, query);
+export const epicorFunctionsWithinDateRange = curry(
+  (dateRangeStart: string, dateRangeEnd: string, transactions: Transaction[]) => {
+    if (!dateRangeStart || !dateRangeEnd) {
+      return transactions;
+    }
+
+    return filter(
+      (transaction: Transaction) =>
+        isWithinInterval(new Date(transaction.createdAt), {
+          start: new Date(dateRangeStart),
+          end: new Date(dateRangeEnd),
+        }),
+      transactions
+    );
+  }
+);
+
+export const getAllEpicorFunctionsForUserByObj = curry((userId: string, query?: object) => {
+  const queryWithoutFilterFields = query && getQueryWithoutFilterFields(query);
+
+  const queryFields = queryWithoutFilterFields || query;
+
+  const userEpicorFunctions = flatMap(getEpicorFunctionsByObj)([
+    {
+      userId: userId,
+      ...queryFields,
+    },
+  ]);
+
+  // if (query && (hasDateQueryFields(query) || hasAmountQueryFields(query))) {
+  if (query) {
+    const { dateRangeStart, dateRangeEnd } = getDateQueryFields(query);
+
+    return flow(epicorFunctionsWithinDateRange(dateRangeStart!, dateRangeEnd!))(
+      userEpicorFunctions
+    );
+  }
+  return userEpicorFunctions;
+});
+
+export const getEpicorFunctionByIdForApi = (id: string) => {};
+// formatEpicorFunctionForApiResponse(getEpicorFunctionBy("id", id));
+
+export const formatEpicorFunctionsForApiResponse = (
+  epicorFunctions: EpicorFunction[]
+): EpicorFunctionResponseItem[] =>
+  orderBy(
+    [(epicorFunction: EpicorFunction) => new Date(epicorFunction.modifiedAt)],
+    ["desc"],
+    epicorFunctions.map((epicorFunction) => formatEpicorFunctionForApiResponse(epicorFunction))
+  );
+
+export const getEpicorFunctionsForUserByObj = curry((userId: string, query: object) =>
+  flow(getAllEpicorFunctionsForUserByObj(userId), uniqBy("id"))(query)
+);
+
+export const getEpicorFunctionsForUserForApi = (userId: string, query?: object) =>
+  flow(getEpicorFunctionsForUserByObj(userId), formatEpicorFunctionsForApiResponse)(query);
 
 /** End EpicorFunction Functions */
 

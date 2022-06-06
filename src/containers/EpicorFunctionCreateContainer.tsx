@@ -76,7 +76,7 @@ const EpicorFunctionCreateContainer: React.FC<Props> = ({ authService, snackbarS
   };
 
   const createEpicorFunction = (payload: EpicorFunction) => {
-    sendCreateEpicorFunction("CREATE_EPICOR_FUNCTION", payload);
+    sendCreateEpicorFunction("CREATE", payload);
   };
 
   const showSnackbar = (payload: SnackbarContext) => sendSnackbar({ type: "SHOW", ...payload });
@@ -133,6 +133,7 @@ const EpicorFunctionCreateContainer: React.FC<Props> = ({ authService, snackbarS
         <EpicorFunctionCreateStepFour
           // @ts-ignore
           createEpicorFunctionService={createEpicorFunctionService}
+          createEpicorFunction={createEpicorFunction}
           showSnackbar={showSnackbar}
         />
       )}

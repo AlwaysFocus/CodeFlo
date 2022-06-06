@@ -2,7 +2,7 @@ export interface Like {
   id: string;
   uuid: string;
   userId: string;
-  transactionId: string;
+  epicorFunctionId: string;
   createdAt: Date;
   modifiedAt: Date;
 }

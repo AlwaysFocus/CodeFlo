@@ -8,6 +8,7 @@ import {
 
 const Mutation = {
   createEpicorConnection: (obj: any, args: any, ctx: any) => {
+    console.log("Triggered createEpicorConnection in GraphQL server");
     const connection = createEpicorConnectionForUser(ctx.user.id!, args);
     return connection;
   },

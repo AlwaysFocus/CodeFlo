@@ -25,6 +25,7 @@ import {
   Notifications as NotificationsIcon,
   AccountBalance as AccountBalanceIcon,
 } from "@mui/icons-material";
+import CodeIcon from "@mui/icons-material/Code";
 import CableIcon from "@mui/icons-material/Cable";
 
 import { formatAmount } from "../utils/transactionUtils";
@@ -49,6 +50,19 @@ export const mainListItems = (
         <HomeIcon />
       </ListItemIcon>
       <ListItemText primary="Home" />
+    </ListItem>
+    <ListItem
+      button
+      // @ts-ignore
+      onClick={() => showTemporaryDrawer && toggleDrawer()}
+      component={RouterLink}
+      to="/epicor-functions/personal"
+      data-test="sidenav-epicor-functions"
+    >
+      <ListItemIcon>
+        <CodeIcon />
+      </ListItemIcon>
+      <ListItemText primary="Epicor Functions" />
     </ListItem>
     <ListItem
       button
