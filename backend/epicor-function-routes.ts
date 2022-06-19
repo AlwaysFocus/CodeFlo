@@ -7,6 +7,8 @@ import {
   getPublicTransactionsByQuery,
   getEpicorFunctionsForUserForApi,
   getEpicorFunctionByIdForApi,
+  createEpicorFunction,
+  createEpicorFunctionForUser,
 } from "./database";
 import { ensureAuthenticated, validateMiddleware } from "./helpers";
 import {
@@ -14,6 +16,7 @@ import {
   sanitizeRequestStatus,
   isTransactionQSValidator,
   isTransactionPublicQSValidator,
+  shortIdValidation,
 } from "./validators";
 import { getPaginatedItems } from "../src/utils/transactionUtils";
 const router = express.Router();
@@ -129,23 +132,20 @@ router.get(
 // );
 
 //POST /epicor-functions - scoped-user
-// router.post(
-//   "/",
-//   ensureAuthenticated,
-//   validateMiddleware(isTransactionPayloadValidator),
-//   (req, res) => {
-//     const transactionPayload = req.body;
-//     const transactionType = transactionPayload.transactionType;
+router.post(
+  "/",
+  ensureAuthenticated,
+  // validateMiddleware(isTransactionPayloadValidator),
+  (req, res) => {
+    const epicorFunctionPayload = req.body;
 
-//     remove("transactionType", transactionPayload);
+    /* istanbul ignore next */
+    const epicorFunction = createEpicorFunctionForUser(req.user?.id!, epicorFunctionPayload);
 
-//     /* istanbul ignore next */
-//     const transaction = createTransaction(req.user?.id!, transactionType, transactionPayload);
-
-//     res.status(200);
-//     res.json({ transaction });
-//   }
-// );
+    res.status(200);
+    res.json({ epicorFunction });
+  }
+);
 
 //GET /transactions/:transactionId - scoped-user
 router.get(
@@ -155,24 +155,26 @@ router.get(
   //),
   (req, res) => {
     const { epicorFunctionId } = req.params;
+    console.log(`Hit get detail endpoint for epicor functions. Function ID: ${epicorFunctionId}`);
+    const epicorFunction = getEpicorFunctionByIdForApi(epicorFunctionId);
 
-    const transaction = getEpicorFunctionByIdForApi(epicorFunctionId);
+    console.log(`Hit get detail endpoint for epicor functions. Functions: ${epicorFunction}`);
 
     res.status(200);
-    res.json({ transaction });
+    res.json({ epicorFunction });
   }
 );
 
 //PATCH /transactions/:transactionId - scoped-user
 // router.patch(
-//   "/:transactionId",
+//   "/:epicorFunctionId",
 //   ensureAuthenticated,
-//   validateMiddleware([shortIdValidation("transactionId"), ...isTransactionPatchValidator]),
+//   // validateMiddleware([shortIdValidation("epicorFunctionId"), ...isTransactionPatchValidator]),
 //   (req, res) => {
-//     const { transactionId } = req.params;
+//     const { epicorFunctionId } = req.params;
 
 //     /* istanbul ignore next */
-//     updateTransactionById(transactionId, req.body);
+//     updateTransactionById(epicorFunctionId, req.body);
 
 //     res.sendStatus(204);
 //   }

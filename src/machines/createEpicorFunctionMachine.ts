@@ -72,6 +72,8 @@ const epicorFunctionDataMachine = dataMachine("epicorFunctionData").withConfig({
         query: createEpicorFunctionMutation.loc?.source.body,
         variables: payload,
       });
+      authService.send("REFRESH");
+      console.log(`Response data after creating epicor function: ${JSON.stringify(resp.data)}`);
       return resp.data;
     },
   },
@@ -105,7 +107,7 @@ export const createEpicorFunctionMachine = createMachine(
     initial: "stepOne",
     states: {
       stepOne: {
-        entry: ["clearContext"],
+        entry: "clearContext",
         on: {
           SET_EPICOR_FUNCTION_INFO: {
             target: "stepTwo",
@@ -145,16 +147,6 @@ export const createEpicorFunctionMachine = createMachine(
         on: {
           CREATE: {
             target: "stepOne",
-            actions: [
-              "createEpicorFunction",
-              (context: any) => {
-                console.log(
-                  `Triggered create in function state machine.\n context: ${JSON.stringify(
-                    context
-                  )}`
-                );
-              },
-            ],
           },
           RESET: {
             target: "stepOne",

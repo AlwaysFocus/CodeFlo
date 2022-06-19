@@ -10988,36 +10988,23 @@
   "epicorconnections": [
     {
       "name": "New Connection",
-      "id": "laAsdj1p_",
-      "uuid": "de6cbe19-cda1-4609-80b7-68146309a009",
+      "id": "Q5H9LgZLO",
+      "uuid": "f05156c9-7f83-49ac-abe1-ce9891f2a8b2",
       "userId": "t45AiwidW",
       "epicorUrl": "https://www.desktop-d94rt1r/Kinetic2022/",
       "epicorApiKey": "85e1MBm1U52uavqusxHuaa9JfGPZ3F8Dp5vIPvyjcnFaj",
       "epicorUsername": "epicor",
-      "epicorPassword": "sdfsdf",
+      "epicorPassword": "gdfgdfg",
       "isDeleted": false,
-      "createdAt": "2022-06-06T02:45:37.928Z",
-      "modifiedAt": "2022-06-06T02:45:37.928Z"
-    },
-    {
-      "name": "New connection",
-      "id": "I1SgfHV5E",
-      "uuid": "ff9c44eb-03cc-41d7-89be-67f3ab9e482a",
-      "userId": "24VniajY1y",
-      "epicorUrl": "123.com",
-      "epicorApiKey": "3333333333333333333333333333333333333333333333",
-      "epicorUsername": "123",
-      "epicorPassword": "123",
-      "isDeleted": false,
-      "createdAt": "2022-06-06T02:46:00.018Z",
-      "modifiedAt": "2022-06-06T02:46:00.018Z"
+      "createdAt": "2022-06-18T23:42:52.575Z",
+      "modifiedAt": "2022-06-18T23:42:52.575Z"
     }
   ],
   "epicorfunctions": [
     {
       "functionId": "New Function",
-      "id": "secA2nfVY",
-      "uuid": "0889983b-e586-42a1-98e3-665f9e517801",
+      "id": "9Mc998E4v",
+      "uuid": "63a71efb-4079-4fc1-85b2-2c544f2bbd39",
       "userId": "t45AiwidW",
       "description": "Cool",
       "body": {
@@ -11028,25 +11015,25 @@
       },
       "functionSignature": {},
       "isDeleted": false,
-      "createdAt": "2022-06-06T03:00:01.545Z",
-      "modifiedAt": "2022-06-06T03:00:01.545Z"
+      "createdAt": "2022-06-18T23:49:34.153Z",
+      "modifiedAt": "2022-06-18T23:49:34.153Z"
     },
     {
-      "functionId": "new function",
-      "id": "A9HaAWv1g",
-      "uuid": "4294ac97-4e7d-4aa8-8d3e-27c67af4f44c",
-      "userId": "24VniajY1y",
-      "description": "dsfsdf",
+      "functionId": "New Function",
+      "id": "LVWgIdE0D",
+      "uuid": "827269c6-9290-4cee-87a6-3024760b0a4c",
+      "userId": "t45AiwidW",
+      "description": "Cool",
       "body": {
-        "code": "sdfsdfd",
+        "code": "fsdfsdfsdf",
         "usings": [
-          "sdfsdf"
+          "Nice"
         ]
       },
       "functionSignature": {},
       "isDeleted": false,
-      "createdAt": "2022-06-06T03:00:37.630Z",
-      "modifiedAt": "2022-06-06T03:00:37.630Z"
+      "createdAt": "2022-06-19T00:56:19.852Z",
+      "modifiedAt": "2022-06-19T00:56:19.852Z"
     }
   ]
 }

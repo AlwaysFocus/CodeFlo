@@ -1,12 +1,6 @@
 import React, { useEffect } from "react";
 import { useMachine, useActor } from "@xstate/react";
-import {
-  User,
-  TransactionPayload,
-  EpicorFunctionPayload,
-  EpicorFunction,
-  EpicorFunctionSignature,
-} from "../models";
+import { User, EpicorFunctionPayload, EpicorFunction, EpicorFunctionSignature } from "../models";
 import { createEpicorFunctionMachine } from "machines/createEpicorFunctionMachine";
 import { usersMachine } from "../machines/usersMachine";
 import { debounce } from "lodash/fp";
@@ -41,24 +35,12 @@ const EpicorFunctionCreateContainer: React.FC<Props> = ({ authService, snackbarS
   const [authState] = useActor(authService);
   const [, sendSnackbar] = useActor(snackbarService);
 
-  // const [createTransactionState, sendCreateTransaction, createTransactionService] =
-  //   useMachine(createTransactionMachine);
-
   const [createEpicorFunctionState, sendCreateEpicorFunction, createEpicorFunctionService] =
     useMachine(createEpicorFunctionMachine);
 
   // Expose createTransactionService on window for Cypress
   // @ts-ignore
-  // window.createTransactionService = createTransactionService;
-
-  // Expose createTransactionService on window for Cypress
-  // @ts-ignore
   window.createEpicorFunctionService = createEpicorFunctionService;
-
-  const epicorFunctionBuilder = new EpicorFunctionBuilder();
-  const newEpicorFunction = epicorFunctionBuilder.build();
-
-  useEffect(() => {});
 
   const setEpicorFunction = (functionId: string, description: string) => {
     // @ts-ignore

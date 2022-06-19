@@ -10,7 +10,8 @@ export const personalEpicorFunctionsMachine = dataMachine("personalEpicorFunctio
       const resp = await httpClient.get(`http://localhost:${backendPort}/epicor-functions`, {
         params: !isEmpty(payload) ? payload : undefined,
       });
-      console.log(`In personalEpicorFunction machine data we got back: ${resp.data}`);
+
+      console.log(`Inside PersonalEpicorFunctionsMachine: ${JSON.stringify(resp.data)}`);
       return resp.data;
     },
   },

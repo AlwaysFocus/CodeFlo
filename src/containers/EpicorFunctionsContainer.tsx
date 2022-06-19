@@ -3,9 +3,10 @@ import { useMachine } from "@xstate/react";
 import { Switch, Route } from "react-router";
 import { EpicorFunctionDateRangePayload } from "../models";
 import { epicorFunctionFiltersMachine } from "../machines/epicorFunctionFiltersMachine";
-import { getDateQueryFields } from "../utils/transactionUtils";
+
 import EpicorFunctionsPersonalList from "components/EpicorFunctionsPersonalList";
 import EpicorFunctionsListFilters from "components/EpicorFunctionsListFilters";
+import { getDateQueryFields } from "utils/epicorFunctionUtils";
 
 const EpicorFunctionsContainer: React.FC = () => {
   const [currentFilters, sendFilterEvent] = useMachine(epicorFunctionFiltersMachine);
@@ -23,24 +24,22 @@ const EpicorFunctionsContainer: React.FC = () => {
 
   return (
     <Switch>
-      {/* <Route exact path="/contacts">
-        <TransactionContactsList
-          filterComponent={Filters}
-          dateRangeFilters={dateRangeFilters as TransactionDateRangePayload}
-          amountRangeFilters={amountRangeFilters as TransactionAmountRangePayload}
-        />
-      </Route> */}
-      <Route exact path="/(epicor-functions)?/(personal)?">
+      <Route exact path="/epicor-functions">
         <EpicorFunctionsPersonalList
           filterComponent={Filters}
           dateRangeFilters={dateRangeFilters as EpicorFunctionDateRangePayload}
         />
       </Route>
-      {/* <Route exact path="/(public)?">
-        <TransactionPublicList
+      {/* <Route exact path="/(epicor-functions)?/(personal)?">
+        <EpicorFunctionsPersonalList
           filterComponent={Filters}
-          dateRangeFilters={dateRangeFilters as TransactionDateRangePayload}
-          amountRangeFilters={amountRangeFilters as TransactionAmountRangePayload}
+          dateRangeFilters={dateRangeFilters as EpicorFunctionDateRangePayload}
+        />
+      </Route>
+      <Route exact path="/(epicor-functions)?/(public)?">
+        <EpicorFunctionsPersonalList
+          filterComponent={Filters}
+          dateRangeFilters={dateRangeFilters as EpicorFunctionDateRangePayload}
         />
       </Route> */}
     </Switch>

@@ -56,7 +56,7 @@ export const mainListItems = (
       // @ts-ignore
       onClick={() => showTemporaryDrawer && toggleDrawer()}
       component={RouterLink}
-      to="/epicor-functions/personal"
+      to="/epicor-functions"
       data-test="sidenav-epicor-functions"
     >
       <ListItemIcon>
@@ -82,7 +82,7 @@ export const mainListItems = (
       // @ts-ignore
       onClick={() => showTemporaryDrawer && toggleDrawer()}
       component={RouterLink}
-      to="/epicorconnections"
+      to="/epicor-connections"
       // data-test="sidenav-bankaccounts"
       data-test="sidenav-epicorconnections"
     >

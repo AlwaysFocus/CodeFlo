@@ -68,6 +68,7 @@ import {
   isCommentNotification,
 } from "../src/utils/transactionUtils";
 import { DbSchema } from "../src/models/db-schema";
+import { EpicorFunctionComment } from "models/epicorfunctioncomment";
 
 export type TDatabase = {
   users: User[];
@@ -76,6 +77,7 @@ export type TDatabase = {
   transactions: Transaction[];
   likes: Like[];
   comments: Comment[];
+  epicorfunctioncomments: EpicorFunctionComment[];
   notifications: NotificationType[];
   banktransfers: BankTransfer[];
 };
@@ -86,6 +88,7 @@ const BANK_ACCOUNT_TABLE = "bankaccounts";
 const TRANSACTION_TABLE = "transactions";
 const LIKE_TABLE = "likes";
 const COMMENT_TABLE = "comments";
+const EPICOR_FUNCTION_COMMENT_TABLE = "epicorfunctioncomments";
 const NOTIFICATION_TABLE = "notifications";
 const BANK_TRANSFER_TABLE = "banktransfers";
 const EPICOR_CONNECTION_TABLE = "epicorconnections";
@@ -627,20 +630,35 @@ export const createLike = (userId: string, epicorFunctionId: string): Like => {
   return savedLike;
 };
 
-export const createLikes = (userId: string, transactionId: string) => {
-  const { senderId, receiverId } = getTransactionById(transactionId);
+// export const createLikes = (userId: string, transactionId: string) => {
+//   const { senderId, receiverId } = getTransactionById(transactionId);
 
-  const like = createLike(userId, transactionId);
+//   const like = createLike(userId, transactionId);
+
+//   /* istanbul ignore next */
+//   if (userId !== senderId || userId !== receiverId) {
+//     createLikeNotification(senderId, transactionId, like.id);
+//     createLikeNotification(receiverId, transactionId, like.id);
+//   } else if (userId === senderId) {
+//     createLikeNotification(senderId, transactionId, like.id);
+//   } else {
+//     createLikeNotification(receiverId, transactionId, like.id);
+//   }
+// };
+export const createLikes = (userId: string, epicorFunctionId: string) => {
+  // const { senderId, receiverId } = getTransactionById(epicorFunctionId);
+
+  createLike(userId, epicorFunctionId);
 
   /* istanbul ignore next */
-  if (userId !== senderId || userId !== receiverId) {
-    createLikeNotification(senderId, transactionId, like.id);
-    createLikeNotification(receiverId, transactionId, like.id);
-  } else if (userId === senderId) {
-    createLikeNotification(senderId, transactionId, like.id);
-  } else {
-    createLikeNotification(receiverId, transactionId, like.id);
-  }
+  // if (userId !== senderId || userId !== receiverId) {
+  //   createLikeNotification(senderId, epicorFunctionId, like.id);
+  //   createLikeNotification(receiverId, epicorFunctionId, like.id);
+  // } else if (userId === senderId) {
+  //   createLikeNotification(senderId, epicorFunctionId, like.id);
+  // } else {
+  //   createLikeNotification(receiverId, epicorFunctionId, like.id);
+  // }
 };
 
 const saveLike = (like: Like): Like => {
@@ -652,51 +670,112 @@ const saveLike = (like: Like): Like => {
 
 // Comments
 
-export const getCommentBy = (key: string, value: any): Comment => getBy(COMMENT_TABLE, key, value);
+// export const getCommentBy = (key: string, value: any): Comment => getBy(COMMENT_TABLE, key, value);
+export const getEpicorFunctionCommentBy = (key: string, value: any): EpicorFunctionComment =>
+  getBy(EPICOR_FUNCTION_COMMENT_TABLE, key, value);
 export const getCommentsByObj = (query: object) => getAllByObj(COMMENT_TABLE, query);
 
-export const getCommentById = (id: string): Comment => getCommentBy("id", id);
+// export const getCommentById = (id: string): Comment => getCommentBy("id", id);
+export const getEpicorFunctionCommentById = (id: string): EpicorFunctionComment =>
+  getEpicorFunctionCommentBy("id", id);
 export const getCommentsByTransactionId = (transactionId: string) =>
   getCommentsByObj({ transactionId });
 export const getCommentsByEpicorFunctionId = (epicorFunctionId: string) =>
   getCommentsByObj({ epicorFunctionId });
 
-export const createComment = (userId: string, transactionId: string, content: string): Comment => {
+// export const createComment = (userId: string, transactionId: string, content: string): Comment => {
+//   const comment = {
+//     id: shortid(),
+//     uuid: v4(),
+//     content,
+//     userId,
+//     transactionId,
+//     createdAt: new Date(),
+//     modifiedAt: new Date(),
+//   };
+
+//   // const savedComment = saveComment(comment);
+//   // return savedComment;
+// };
+export const createEpicorFunctionComment = (
+  userId: string,
+  epicorFunctionId: string,
+  content: string
+): EpicorFunctionComment => {
   const comment = {
     id: shortid(),
     uuid: v4(),
     content,
     userId,
-    transactionId,
+    epicorFunctionId,
     createdAt: new Date(),
     modifiedAt: new Date(),
   };
 
-  const savedComment = saveComment(comment);
+  const savedComment = saveEpicorFunctionComment(comment);
   return savedComment;
 };
 
-export const createComments = (userId: string, transactionId: string, content: string) => {
-  const { senderId, receiverId } = getTransactionById(transactionId);
+// export const createComments = (userId: string, transactionId: string, content: string) => {
+//   const { senderId, receiverId } = getTransactionById(transactionId);
 
-  const comment = createComment(userId, transactionId, content);
+//   const comment = createComment(userId, transactionId, content);
+
+//   /* istanbul ignore next */
+//   if (userId !== senderId || userId !== receiverId) {
+//     createCommentNotification(senderId, transactionId, comment.id);
+//     createCommentNotification(receiverId, transactionId, comment.id);
+//   } else if (userId === senderId) {
+//     createCommentNotification(senderId, transactionId, comment.id);
+//   } else {
+//     createCommentNotification(receiverId, transactionId, comment.id);
+//   }
+// };
+export const createComments = (userId: string, epicorFunctionId: string, content: string) => {
+  // const { senderId, receiverId } = getTransactionById(transactionId);
+  // createComment(userId, epicorFunctionId, content);
+  /* istanbul ignore next */
+  // if (userId !== senderId || userId !== receiverId) {
+  //   createCommentNotification(senderId, transactionId, comment.id);
+  //   createCommentNotification(receiverId, transactionId, comment.id);
+  // } else if (userId === senderId) {
+  //   createCommentNotification(senderId, transactionId, comment.id);
+  // } else {
+  //   createCommentNotification(receiverId, transactionId, comment.id);
+  // }
+};
+export const createEpicorFunctionComments = (
+  userId: string,
+  epicorFunctionId: string,
+  content: string
+) => {
+  // const { senderId, receiverId } = getTransactionById(transactionId);
+
+  createEpicorFunctionComment(userId, epicorFunctionId, content);
 
   /* istanbul ignore next */
-  if (userId !== senderId || userId !== receiverId) {
-    createCommentNotification(senderId, transactionId, comment.id);
-    createCommentNotification(receiverId, transactionId, comment.id);
-  } else if (userId === senderId) {
-    createCommentNotification(senderId, transactionId, comment.id);
-  } else {
-    createCommentNotification(receiverId, transactionId, comment.id);
-  }
+  // if (userId !== senderId || userId !== receiverId) {
+  //   createCommentNotification(senderId, transactionId, comment.id);
+  //   createCommentNotification(receiverId, transactionId, comment.id);
+  // } else if (userId === senderId) {
+  //   createCommentNotification(senderId, transactionId, comment.id);
+  // } else {
+  //   createCommentNotification(receiverId, transactionId, comment.id);
+  // }
 };
 
-const saveComment = (comment: Comment): Comment => {
-  db.get(COMMENT_TABLE).push(comment).write();
+// const saveComment = (comment: Comment): Comment => {
+//   db.get(COMMENT_TABLE).push(comment).write();
+
+//   // manual lookup after comment created
+//   return getCommentById(comment.id);
+// };
+
+const saveEpicorFunctionComment = (comment: EpicorFunctionComment): EpicorFunctionComment => {
+  db.get(EPICOR_FUNCTION_COMMENT_TABLE).push(comment).write();
 
   // manual lookup after comment created
-  return getCommentById(comment.id);
+  return getEpicorFunctionCommentById(comment.id);
 };
 
 // Notifications
@@ -814,8 +893,8 @@ export const formatNotificationForApiResponse = (
   }
 
   if (isCommentNotification(notification)) {
-    const comment = getCommentById(notification.commentId);
-    userFullName = getFullNameForUser(comment.userId);
+    // const comment = getCommentById(notification.commentId);
+    // userFullName = getFullNameForUser(comment.userId);
   }
 
   return {
@@ -891,10 +970,8 @@ export const removeEpicorConnectionById = (epicorConnectionId: string) => {
 /** End EpicorConnection Functions */
 
 /** EpicorFunction Functions */
-export const getEpicorFunctionBy = (key: string, value: any) => {
+export const getEpicorFunctionBy = (key: string, value: any) =>
   getBy(EPICOR_FUNCTION_TABLE, key, value);
-};
-
 export const getEpicorFunctionById = (id: string) => getEpicorFunctionBy("id", id);
 
 export const getEpicorFunctionsBy = (key: string, value: any) =>
@@ -1006,8 +1083,8 @@ export const getAllEpicorFunctionsForUserByObj = curry((userId: string, query?: 
   return userEpicorFunctions;
 });
 
-export const getEpicorFunctionByIdForApi = (id: string) => {};
-// formatEpicorFunctionForApiResponse(getEpicorFunctionBy("id", id));
+export const getEpicorFunctionByIdForApi = (id: string) =>
+  formatEpicorFunctionForApiResponse(getEpicorFunctionBy("id", id));
 
 export const formatEpicorFunctionsForApiResponse = (
   epicorFunctions: EpicorFunction[]

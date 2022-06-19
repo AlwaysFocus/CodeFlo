@@ -1,15 +1,13 @@
 import {
-  Transaction,
   User,
-  TransactionRequestStatus,
   NotificationType,
-  PaymentNotificationStatus,
-  TransactionResponseItem,
   TransactionQueryPayload,
   TransactionDateRangePayload,
-  TransactionAmountRangePayload,
   LikeNotification,
   CommentNotification,
+  EpicorFunctionResponseItem,
+  EpicorFunctionQueryPayload,
+  EpicorFunctionDateRangePayload,
 } from "../models";
 import { faker } from "@faker-js/faker";
 import Dinero from "dinero.js";
@@ -31,17 +29,18 @@ import {
 } from "lodash/fp";
 
 /* istanbul ignore next */
-export const currentUserLikesTransaction = (
+export const currentUserLikesEpicorFunction = (
   currentUser: User,
-  transaction: TransactionResponseItem
+  epicorFunction: EpicorFunctionResponseItem
 ) =>
   flow(
     find((like) => flow(get("userId"), isEqual(get("id", currentUser)))(like)),
     negate(isEmpty)
-  )(transaction.likes);
+  )(epicorFunction.likes);
 
-export const hasDateQueryFields = (query: TransactionQueryPayload | TransactionDateRangePayload) =>
-  has("dateRangeStart", query) && has("dateRangeEnd", query);
+export const hasDateQueryFields = (
+  query: EpicorFunctionQueryPayload | EpicorFunctionDateRangePayload
+) => has("dateRangeStart", query) && has("dateRangeEnd", query);
 
 export const getDateQueryFields = (query: TransactionDateRangePayload) =>
   pick(["dateRangeStart", "dateRangeEnd"], query);

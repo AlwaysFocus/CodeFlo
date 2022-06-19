@@ -16,6 +16,8 @@ import userRoutes from "./user-routes";
 import contactRoutes from "./contact-routes";
 import bankAccountRoutes from "./bankaccount-routes";
 import epicorConnectionRoutes from "./epicorconnections-routes";
+import epicorFunctionCommentRoutes from "./epicor-function-comment-routes";
+import epicorFunctionLikesRoutes from "./epicor-function-like-routes";
 import epicorFunctionRoutes from "./epicor-function-routes";
 import transactionRoutes from "./transaction-routes";
 import likeRoutes from "./like-routes";
@@ -111,7 +113,9 @@ app.use("/epicorConnections", epicorConnectionRoutes);
 app.use("/epicor-functions", epicorFunctionRoutes);
 app.use("/transactions", transactionRoutes);
 app.use("/likes", likeRoutes);
+app.use("/epicor-function-likes", epicorFunctionLikesRoutes);
 app.use("/comments", commentRoutes);
+app.use("/epicor-function-comments", epicorFunctionCommentRoutes);
 app.use("/notifications", notificationRoutes);
 app.use("/bankTransfers", bankTransferRoutes);
 

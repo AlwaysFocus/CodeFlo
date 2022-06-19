@@ -8,6 +8,7 @@ import { NotificationType } from "./notification";
 import { Comment } from "./comment";
 import { EpicorConnection } from "./epicorconnection";
 import { EpicorFunction } from "./epicorfunction";
+import { EpicorFunctionComment } from "./epicorfunctioncomment";
 
 export interface DbSchema {
   users: User[];
@@ -20,4 +21,5 @@ export interface DbSchema {
   banktransfers: BankTransfer[];
   epicorconnections: EpicorConnection[];
   epicorfunctions: EpicorFunction[];
+  epicorfunctioncomments: EpicorFunctionComment[];
 }

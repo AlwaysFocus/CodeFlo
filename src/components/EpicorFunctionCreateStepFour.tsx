@@ -105,12 +105,12 @@ const EpicorFunctionCreateStepFour: React.FC<EpicorFunctionCreateStepFourProps> 
               variant="contained"
               size="small"
               component={RouterLink}
-              to="/"
+              to="/epicor-functions"
               data-test="new-epicor-function-return-to-epicor-functions"
               onClick={() => {
                 createEpicorFunction(epicorFunctionDetails);
                 sendCreateEpicorFunction("RESET");
-                history.push("/epicor-functions/personal");
+                history.push("/epicor-functions");
               }}
             >
               Submit and Exit

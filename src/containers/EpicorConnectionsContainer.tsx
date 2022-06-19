@@ -57,7 +57,7 @@ const EpicorConnectionsContainer: React.FC<Props> = ({
     sendEpicorConnections("FETCH");
   }, [sendEpicorConnections]);
 
-  if (match.url === "/epicorconnections/new" && currentUser?.id) {
+  if (match.url === "/epicor-connections/new" && currentUser?.id) {
     return (
       <Paper sx={{ ...paperStyle }}>
         <Typography component="h2" variant="h6" color="primary" gutterBottom>
@@ -85,7 +85,7 @@ const EpicorConnectionsContainer: React.FC<Props> = ({
             color="primary"
             size="large"
             component={RouterLink}
-            to="/epicorconnections/new"
+            to="/epicor-connections/new"
             // data-test="bankaccount-new"
             data-test="epicorconnection-new"
           >

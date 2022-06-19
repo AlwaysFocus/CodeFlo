@@ -29,10 +29,6 @@ interface FormValues {
   type: string;
 }
 
-// interface FormValues {
-//   functionSignature: EpicorFunctionSignature;
-// }
-
 const EpicorFunctionCreateStepThree: React.FC<EpicorFunctionCreateStepThreeProps> = ({
   setEpicorFunctionSignature,
   showSnackbar,
@@ -53,11 +49,11 @@ const EpicorFunctionCreateStepThree: React.FC<EpicorFunctionCreateStepThreeProps
       }}
       elevation={0}
     >
-      <Box display="flex" height={200} alignItems="center" justifyContent="center">
+      {/* <Box display="flex" height={200} alignItems="center" justifyContent="center">
         <Grid container direction="column" justifyContent="flex-start" alignItems="center">
           <Grid item></Grid>
         </Grid>
-      </Box>
+      </Box> */}
       <Container maxWidth="xs">
         <Formik
           initialValues={initialValues}

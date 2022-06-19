@@ -28,10 +28,10 @@ import {
 import { Link as RouterLink, useLocation } from "react-router-dom";
 
 import { DataContext, DataEvents, DataSchema } from "../machines/dataMachine";
-import TransactionNavTabs from "./TransactionNavTabs";
 import RWALogo from "./SvgRwaLogo";
 import RWALogoIcon from "./SvgRwaIconLogo";
 import CodeIcon from "@mui/icons-material/Code";
+import EpicorFunctionNavTabs from "./EpicorFunctionNavTabs";
 
 const drawerWidth = 240;
 
@@ -168,9 +168,8 @@ const NavBar: React.FC<NavBarProps> = ({ drawerOpen, toggleDrawer, notifications
           </Badge>
         </IconButton>
       </Toolbar>
-      {(match.pathname === "/" || RegExp("/(?:public|contacts|personal)").test(match.pathname)) && (
-        <TransactionNavTabs />
-      )}
+      {(match.pathname === "/epicor-functions" ||
+        RegExp("/(?:public|contacts|personal)").test(match.pathname)) && <EpicorFunctionNavTabs />}
     </AppBar>
   );
 };

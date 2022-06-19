@@ -17,7 +17,6 @@ const EpicorFunctionsPersonalList: React.FC<EpicorFunctionPersonalListProps> = (
   filterComponent,
   dateRangeFilters,
 }) => {
-  //   const [current, send, personalTransactionService] = useMachine(personalTransactionsMachine);
   const [current, send, personalEpicorFunctionService] = useMachine(personalEpicorFunctionsMachine);
   const { pageData, results } = current.context;
 
@@ -25,16 +24,14 @@ const EpicorFunctionsPersonalList: React.FC<EpicorFunctionPersonalListProps> = (
   if (window.Cypress) {
     // @ts-ignore
     window.personalEpicorFunctionService = personalEpicorFunctionService;
-    // window.personalTransactionService = personalTransactionService;
   }
 
   useEffect(() => {
+    console.log("About to fetch epicor functions in TransactionPublic");
     send("FETCH", { ...dateRangeFilters });
   }, [send, dateRangeFilters]);
-  //   }, [send, dateRangeFilters, amountRangeFilters]);
 
   const loadNextPage = (page: number) => send("FETCH", { page, ...dateRangeFilters });
-  // send("FETCH", { page, ...dateRangeFilters, ...amountRangeFilters });
 
   return (
     <>

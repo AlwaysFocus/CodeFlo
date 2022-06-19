@@ -8,5 +8,6 @@
   "notifications": [],
   "banktransfers": [],
   "epicorconnections": [],
-  "epicorfunctions": []
+  "epicorfunctions": [],
+  "epicorfunctioncomments": []
 }
