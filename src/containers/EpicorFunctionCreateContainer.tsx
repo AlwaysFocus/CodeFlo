@@ -38,7 +38,7 @@ const EpicorFunctionCreateContainer: React.FC<Props> = ({ authService, snackbarS
   const [createEpicorFunctionState, sendCreateEpicorFunction, createEpicorFunctionService] =
     useMachine(createEpicorFunctionMachine);
 
-  // Expose createTransactionService on window for Cypress
+  // Expose createEpicorFunctionService on window for Cypress
   // @ts-ignore
   window.createEpicorFunctionService = createEpicorFunctionService;
 
