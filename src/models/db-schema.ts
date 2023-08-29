@@ -9,6 +9,7 @@ import { Comment } from "./comment";
 import { EpicorConnection } from "./epicorconnection";
 import { EpicorFunction } from "./epicorfunction";
 import { EpicorFunctionComment } from "./epicorfunctioncomment";
+import { EpicorLibraryDefinition } from "./epicorlibrarydefinition";
 
 export interface DbSchema {
   users: User[];
@@ -22,4 +23,5 @@ export interface DbSchema {
   epicorconnections: EpicorConnection[];
   epicorfunctions: EpicorFunction[];
   epicorfunctioncomments: EpicorFunctionComment[];
+  epicorlibraries: EpicorLibraryDefinition[];
 }
